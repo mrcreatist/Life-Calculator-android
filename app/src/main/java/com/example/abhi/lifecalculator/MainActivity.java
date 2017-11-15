@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 currentMonth = c.get(Calendar.MONTH);
                 currentDay = c.get(Calendar.DAY_OF_MONTH);
 
-                Toast.makeText(MainActivity.this, currentDay + "-" + currentMonth + "-" + currentYear, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, currentDay + "-" + currentMonth + "-" + currentYear, Toast.LENGTH_SHORT).show();
 
                 birthYear = c.get(Calendar.YEAR);
                 birthMonth = c.get(Calendar.MONTH);
@@ -72,8 +71,76 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void calculate() {
-        int age;
-        age = currentYear - birthYear;
-        yearNumber.setText(Integer.toString(age));
+        int totalDays = 0;
+        int birthYearCopy = birthYear;
+        int birthMonthCopy = birthMonth;
+
+        // calculating number of days between (birthYear + 1) and (currentYear - 1)
+        birthYearCopy++;
+        while (birthYearCopy != currentYear) {
+            totalDays += daysInYear(birthYearCopy);
+            birthYearCopy++;
+        }
+
+        // calculating number of days left from (birthMonth + 1) till the completion of birth year
+        birthMonthCopy++;
+        while (birthMonthCopy != 13) {
+            totalDays += daysInMonth(birthMonthCopy, birthYear);
+            birthMonthCopy++;
+        }
+
+        // calculating number of days left in the month
+        int monthValue;
+        monthValue = daysInMonth(birthMonth, birthYear);
+        totalDays += (monthValue - birthDay);
+
+        // calculating number of days to be added till (currentMonth - 1)
+        int i = 0;
+        while (i != currentMonth) {
+            daysInMonth(i, currentYear);
+            i++;
+        }
+
+        // adding currentMonth days to total number of Days
+        totalDays += currentDay;
+
+        yearNumber.setText(Integer.toString(totalDays));
+
+    }
+
+    public int daysInMonth(int month, int year) {
+
+        int monthValue = 0;
+        if (month <= 7) {
+            if (month % 2 == 0) {
+                if (month == 2) {
+                    if (year % 4 == 0) {
+                        monthValue = 29;
+                    } else {
+                        monthValue = 28;
+                    }
+                } else {
+                    monthValue = 30;
+                }
+            } else {
+                monthValue = 31;
+            }
+        } else {
+            if (month % 2 == 0) {
+                monthValue = 31;
+            } else {
+                monthValue = 30;
+            }
+        }
+
+        return monthValue;
+    }
+
+    public int daysInYear(int year) {
+        if (year % 4 == 0) {
+            return 366;
+        } else {
+            return 365;
+        }
     }
 }
