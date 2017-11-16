@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appTitle" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginStart="32dp"
@@ -62,8 +62,8 @@
         android:textColor="@color/Black"
         android:textSize="12dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintStart_toStartOf="@+id/userName"
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
 
     <TextView
         android:id="@+id/yearNumber"
@@ -88,7 +88,7 @@
         android:layout_marginStart="8dp"
         android:fontFamily="sans-serif"
         android:gravity="left"
-        android:text="years"
+        android:text="year"
         android:textAllCaps="true"
         android:textColor="@color/Black"
         android:textSize="12dp"
@@ -144,7 +144,7 @@
         app:layout_constraintTop_toBottomOf="@+id/monthNumber" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/submitButton"
         android:layout_width="128dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"

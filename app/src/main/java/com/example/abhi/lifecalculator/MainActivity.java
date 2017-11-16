@@ -16,31 +16,39 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     int currentYear, currentMonth, currentDay;
     int birthYear, birthMonth, birthDay;
     int daysLeftInBirthMonth, daysLeftInBirthYear, daysInMidYears, daysInCurrentYearExceptCurrentMonth, totalDays;
-    int monthIndex;
+    int totalMonths, residueDays;
+    int totalYears;
+    // double totalYearsFloat;
 
-    TextView name;
+    TextView userName;
     TextView yearNumber;
+    TextView monthNumber;
     EditText getName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        name = (TextView) findViewById(R.id.name);
+        userName = (TextView) findViewById(R.id.userName);
         yearNumber = (TextView) findViewById(R.id.yearNumber);
+        monthNumber = (TextView) findViewById(R.id.monthNumber);
         getName = (EditText) findViewById(R.id.editText);
-
-        Button button = (Button) findViewById(R.id.button);
+        Button submitButton = (Button) findViewById(R.id.submitButton);
         Button selectDate = (Button) findViewById(R.id.selectDate);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        userName.setText("");
+        yearNumber.setText("");
+        monthNumber.setText("");
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name.setText(getName.getText());
+                userName.setText(getName.getText());
                 int x = calculateDays(birthYear, birthMonth);
-                //yearNumber.setText(Integer.toString(calculateDays(birthYear, birthMonth)));
-                yearNumber.setText(Integer.toString(calculateMonths()));
+                monthNumber.setText(Integer.toString(calculateMonths()));
+                yearNumber.setText(Integer.toString(calculateYears()));
             }
         });
 
@@ -83,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         daysLeftInBirthYear = 0;
         daysInMidYears = 0;
         daysInCurrentYearExceptCurrentMonth = 0;
-        monthIndex = 0;
+        totalMonths = 0;
 
         /*STAGE 1
         *
@@ -98,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         // number of months left in completion of year after the birth month
         while (++birthMonthCopy != 13) {
             daysLeftInBirthYear += daysInMonth(birthMonthCopy, birthYearCopy);
-            monthIndex++;
+            totalMonths++;
         }
         totalDays += daysLeftInBirthYear;
 
@@ -114,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             daysInMidYears += daysInYear(birthYearCopy);
             tempmonth += 12;
         }
-        monthIndex += tempmonth;
+        totalMonths += tempmonth;
         totalDays += daysInMidYears;
 
 
@@ -127,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         int i = 0;
         while (i++ != currentMonth) {
             daysInCurrentYearExceptCurrentMonth += daysInMonth(i, currentYear);
-            monthIndex++;
+            totalMonths++;
         }
         totalDays += daysInCurrentYearExceptCurrentMonth;
 
@@ -138,7 +146,20 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public int calculateMonths() {
-        return monthIndex;
+        residueDays = daysLeftInBirthMonth + currentDay;
+
+        while (residueDays > 29) {
+            residueDays -= 30;
+            totalMonths++;
+        }
+
+        return totalMonths;
+    }
+
+    public int calculateYears() {
+        totalYears = totalMonths / 12;
+        //totalYearsFloat = totalMonths / 12;
+        return totalYears;
     }
 
     // Supporting Methods
