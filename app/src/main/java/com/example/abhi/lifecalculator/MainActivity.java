@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     int currentYear, currentMonth, currentDay;
     int birthYear, birthMonth, birthDay;
+    int daysLeftInBirthMonth, daysLeftInBirthYear, daysInMidYears, daysInCurrentYearExceptCurrentMonth, totalDays;
+    int monthIndex;
 
     TextView name;
     TextView yearNumber;
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onClick(View view) {
                 name.setText(getName.getText());
-                calculate();
+                int x = calculateDays(birthYear, birthMonth);
+                //yearNumber.setText(Integer.toString(calculateDays(birthYear, birthMonth)));
+                yearNumber.setText(Integer.toString(calculateMonths()));
             }
         });
 
@@ -65,80 +69,144 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         birthYear = i;
-        birthMonth = i1;
+        birthMonth = ++i1;
         birthDay = i2;
 
     }
 
-    public void calculate() {
-        int totalDays = 0;
-        int birthYearCopy = birthYear;
-        int birthMonthCopy = birthMonth;
+    public int calculateDays(int birthYearCopy, int birthMonthCopy) {
+        totalDays = 0;
+        // int birthYearCopy = birthYear;
+        // int birthMonthCopy = birthMonth;
 
-        // calculating number of days between (birthYear + 1) and (currentYear - 1)
-        birthYearCopy++;
-        while (birthYearCopy != currentYear) {
-            totalDays += daysInYear(birthYearCopy);
-            birthYearCopy++;
+        daysLeftInBirthMonth = 0;
+        daysLeftInBirthYear = 0;
+        daysInMidYears = 0;
+        daysInCurrentYearExceptCurrentMonth = 0;
+        monthIndex = 0;
+
+        /*STAGE 1
+        *
+        * Calculating the number of days required to complete the birth year
+        * */
+
+        // number of days left in completion of birth month
+        int monthValue = daysInMonth(birthMonthCopy, birthYearCopy);
+        daysLeftInBirthMonth = (monthValue - birthDay);
+        totalDays += daysLeftInBirthMonth;
+
+        // number of months left in completion of year after the birth month
+        while (++birthMonthCopy != 13) {
+            daysLeftInBirthYear += daysInMonth(birthMonthCopy, birthYearCopy);
+            monthIndex++;
         }
+        totalDays += daysLeftInBirthYear;
 
-        // calculating number of days left from (birthMonth + 1) till the completion of birth year
-        birthMonthCopy++;
-        while (birthMonthCopy != 13) {
-            totalDays += daysInMonth(birthMonthCopy, birthYear);
-            birthMonthCopy++;
+
+        /*STAGE 2
+        *
+        * Calculating the number of days in the mid years.
+        * mid years = from (birth year + 1) till (current year - 1)
+        * */
+
+        int tempmonth = 0;
+        while (++birthYearCopy != currentYear) {
+            daysInMidYears += daysInYear(birthYearCopy);
+            tempmonth += 12;
         }
+        monthIndex += tempmonth;
+        totalDays += daysInMidYears;
 
-        // calculating number of days left in the month
-        int monthValue;
-        monthValue = daysInMonth(birthMonth, birthYear);
-        totalDays += (monthValue - birthDay);
 
-        // calculating number of days to be added till (currentMonth - 1)
+        /*STAGE 3
+        *
+        * Calculating the number of Days of current year
+        * */
+
+        // calculating number of days till (current month - 1)
         int i = 0;
-        while (i != currentMonth) {
-            daysInMonth(i, currentYear);
-            i++;
+        while (i++ != currentMonth) {
+            daysInCurrentYearExceptCurrentMonth += daysInMonth(i, currentYear);
+            monthIndex++;
         }
+        totalDays += daysInCurrentYearExceptCurrentMonth;
 
-        // adding currentMonth days to total number of Days
+        // adding the number of days till date of current month
         totalDays += currentDay;
 
-        yearNumber.setText(Integer.toString(totalDays));
-
+        return totalDays;
     }
+
+    public int calculateMonths() {
+        return monthIndex;
+    }
+
+    // Supporting Methods
 
     public int daysInMonth(int month, int year) {
 
         int monthValue = 0;
+        // jan, feb, mar, apr, may, jun, jul
         if (month <= 7) {
+            // feb, apr, jun
             if (month % 2 == 0) {
+                // exceptional case: feb
                 if (month == 2) {
+                    // check for leap year
                     if (year % 4 == 0) {
-                        monthValue = 29;
+                        // check for centurial leap year
+                        if (year % 100 == 0) {
+                            year = year / 100;
+                            if (year % 4 == 0) {
+                                monthValue = 29;
+                            } else {
+                                monthValue = 28;
+                            }
+                        } else {
+                            monthValue = 29;
+                        }
                     } else {
                         monthValue = 28;
                     }
                 } else {
                     monthValue = 30;
                 }
-            } else {
+            }
+            // jan mar may jul
+            else {
                 monthValue = 31;
             }
-        } else {
+        }
+        // aug, sep, oct, nov, dec
+        else {
+            // aug, oct, dec
             if (month % 2 == 0) {
                 monthValue = 31;
-            } else {
+            }
+            // sep, nov
+            else {
                 monthValue = 30;
             }
         }
 
+        // returning final value
         return monthValue;
     }
 
     public int daysInYear(int year) {
+        // check for leap year
         if (year % 4 == 0) {
-            return 366;
+            // check for centurial year
+            if (year % 100 == 0) {
+                year = year / 100;
+                if (year % 4 == 0) {
+                    return 366;
+                } else {
+                    return 365;
+                }
+            } else {
+                return 366;
+            }
         } else {
             return 365;
         }
