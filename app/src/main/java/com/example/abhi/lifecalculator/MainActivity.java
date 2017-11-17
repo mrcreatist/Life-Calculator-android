@@ -2,8 +2,11 @@ package com.example.abhi.lifecalculator;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,10 +23,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     int totalYears;
     // double totalYearsFloat;
 
-    TextView userName;
-    TextView yearNumber;
-    TextView monthNumber;
+    TextView userName, yearNumber, monthNumber;
     EditText getName;
+    FloatingActionButton floatingActionButton, floatingActionButton1;
+    Animation FabOpen, FabClose, FabRClockwise, FabRAntiClockwise;
+    boolean isOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         yearNumber = (TextView) findViewById(R.id.yearNumber);
         monthNumber = (TextView) findViewById(R.id.monthNumber);
         getName = (EditText) findViewById(R.id.editText);
+
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        floatingActionButton1 = (FloatingActionButton) findViewById(R.id.floatingActionButton1);
+        FabOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        FabClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+        FabRClockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
+        FabRAntiClockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
+
         Button submitButton = (Button) findViewById(R.id.submitButton);
         Button selectDate = (Button) findViewById(R.id.selectDate);
 
@@ -70,6 +82,23 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, MainActivity.this, birthYear, birthMonth, birthDay);
                 datePickerDialog.show();
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isOpen) {
+                    floatingActionButton1.startAnimation(FabClose);
+                    floatingActionButton.startAnimation(FabRAntiClockwise);
+                    floatingActionButton1.setClickable(false);
+                    isOpen = false;
+                } else {
+                    floatingActionButton1.startAnimation(FabOpen);
+                    floatingActionButton.startAnimation(FabRClockwise);
+                    floatingActionButton1.setClickable(true);
+                    isOpen = true;
+                }
             }
         });
     }

@@ -168,16 +168,32 @@
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/floatingActionButton"
         android:layout_width="66dp"
         android:layout_height="66dp"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
-        android:elevation="10dp"
+        android:elevation="5dp"
+        android:src="@android:drawable/ic_dialog_info"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_info" />
+        app:pressedTranslationZ="10dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton1"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:elevation="5dp"
+        android:src="@android:drawable/ic_dialog_alert"
+        android:visibility="invisible"
+        app:backgroundTint="@color/Fab_color2"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="10dp" />
 
 </android.support.constraint.ConstraintLayout>
