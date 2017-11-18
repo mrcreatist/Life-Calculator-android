@@ -1,10 +1,14 @@
 package com.example.abhi.lifecalculator;
 
+import android.animation.Animator;
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -21,11 +25,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     int daysLeftInBirthMonth, daysLeftInBirthYear, daysInMidYears, daysInCurrentYearExceptCurrentMonth, totalDays;
     int totalMonths, residueDays;
     int totalYears;
+
+    int getX, getY;
     // double totalYearsFloat;
 
     TextView userName, yearNumber, monthNumber;
     EditText getName;
     FloatingActionButton floatingActionButton, floatingActionButton1;
+    View backgroundDimmer;
     Animation FabOpen, FabClose, FabRClockwise, FabRAntiClockwise;
     boolean isOpen = false;
 
@@ -47,12 +54,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         FabRClockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
         FabRAntiClockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
 
-        Button submitButton = (Button) findViewById(R.id.submitButton);
-        Button selectDate = (Button) findViewById(R.id.selectDate);
+        final Button submitButton = (Button) findViewById(R.id.submitButton);
+        final Button selectDate = (Button) findViewById(R.id.selectDate);
 
         userName.setText("");
         yearNumber.setText("");
         monthNumber.setText("");
+
+        getX = (int) findViewById(R.id.homeConstraintLayout).getWidth();
+        getY = (int) findViewById(R.id.homeConstraintLayout).getHeight();
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,22 +95,77 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
 
+        backgroundDimmer = (View) findViewById(R.id.background_dimmer);
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+
                 if (isOpen) {
-                    floatingActionButton1.startAnimation(FabClose);
+/*                    floatingActionButton1.startAnimation(FabClose);
                     floatingActionButton.startAnimation(FabRAntiClockwise);
                     floatingActionButton1.setClickable(false);
                     isOpen = false;
+
+                    backgroundDimmer.setVisibility(View.GONE);*/
+
+                    int x = (int) findViewById(R.id.homeConstraintLayout).getRight();
+                    int y = (int) findViewById(R.id.homeConstraintLayout).getBottom();
+
+                    int startRadius = Math.max(getX, getY);
+                    int endRadius = (int) Math.hypot(getX, getY);
+
+                    Animator anim = ViewAnimationUtils.createCircularReveal(backgroundDimmer, x, y, startRadius, endRadius);
+                    /*anim.addListener(new Animator.AnimatorListener(){
+                        @Override
+                        public void onAnimationStart(Animator animator){
+
+                        }
+                        @Override
+                        public void onAnimationEnd(Animator animator){
+
+                        }
+                    });*/
+                    anim.start();
+                    isOpen = false;
                 } else {
-                    floatingActionButton1.startAnimation(FabOpen);
+                    /*floatingActionButton1.startAnimation(FabOpen);
                     floatingActionButton.startAnimation(FabRClockwise);
-                    floatingActionButton1.setClickable(true);
+                    floatingActionButton1.setClickable(true);*/
+                    // backgroundDimmer.setVisibility(View.VISIBLE);
+
+                    int x = (int) findViewById(R.id.homeConstraintLayout).getRight();
+                    int y = (int) findViewById(R.id.homeConstraintLayout).getBottom();
+
+                    int startRadius = 0;
+                    int endRadius = (int) Math.hypot(getX, getY);
+
+                    //floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources().android.R.color.white.null)));
+                    //floatingActionButton.setImageResource(R.drawable);
+
+                    Animator anim = ViewAnimationUtils.createCircularReveal(backgroundDimmer, x, y, startRadius, endRadius);
+                    anim.start();
+
                     isOpen = true;
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (isOpen == true) {
+            floatingActionButton1.startAnimation(FabClose);
+            floatingActionButton.startAnimation(FabRAntiClockwise);
+            floatingActionButton1.setClickable(false);
+            isOpen = false;
+
+            backgroundDimmer.setVisibility(View.GONE);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
