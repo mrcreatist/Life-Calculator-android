@@ -1,21 +1,21 @@
 package com.example.abhi.lifecalculator;
 
-import android.animation.Animator;
 import android.app.DatePickerDialog;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -31,28 +31,37 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     TextView userName, yearNumber, monthNumber;
     EditText getName;
-    FloatingActionButton floatingActionButton, floatingActionButton1;
-    View backgroundDimmer;
-    Animation FabOpen, FabClose, FabRClockwise, FabRAntiClockwise;
+    FloatingActionButton floatingActionButton;
     boolean isOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
+        String filename = "User_DB";
+        String message;
+        try {
+            FileInputStream inputStream = openFileInput(filename);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            while ((message = bufferedReader.readLine()) != null) {
+
+            }
+
+            Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         userName = (TextView) findViewById(R.id.userName);
         yearNumber = (TextView) findViewById(R.id.yearNumber);
         monthNumber = (TextView) findViewById(R.id.monthNumber);
         getName = (EditText) findViewById(R.id.editText);
-
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        floatingActionButton1 = (FloatingActionButton) findViewById(R.id.floatingActionButton1);
-        FabOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-        FabClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
-        FabRClockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_clockwise);
-        FabRAntiClockwise = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_anticlockwise);
 
         final Button submitButton = (Button) findViewById(R.id.submitButton);
         final Button selectDate = (Button) findViewById(R.id.selectDate);
@@ -60,9 +69,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         userName.setText("");
         yearNumber.setText("");
         monthNumber.setText("");
-
-        getX = (int) findViewById(R.id.homeConstraintLayout).getWidth();
-        getY = (int) findViewById(R.id.homeConstraintLayout).getHeight();
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,60 +101,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
 
-        backgroundDimmer = (View) findViewById(R.id.background_dimmer);
-
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
             @Override
-            public void onClick(View v) {
-
-                if (isOpen) {
-/*                    floatingActionButton1.startAnimation(FabClose);
-                    floatingActionButton.startAnimation(FabRAntiClockwise);
-                    floatingActionButton1.setClickable(false);
-                    isOpen = false;
-
-                    backgroundDimmer.setVisibility(View.GONE);*/
-
-                    int x = (int) findViewById(R.id.homeConstraintLayout).getRight();
-                    int y = (int) findViewById(R.id.homeConstraintLayout).getBottom();
-
-                    int startRadius = Math.max(getX, getY);
-                    int endRadius = (int) Math.hypot(getX, getY);
-
-                    Animator anim = ViewAnimationUtils.createCircularReveal(backgroundDimmer, x, y, startRadius, endRadius);
-                    /*anim.addListener(new Animator.AnimatorListener(){
-                        @Override
-                        public void onAnimationStart(Animator animator){
-
-                        }
-                        @Override
-                        public void onAnimationEnd(Animator animator){
-
-                        }
-                    });*/
-                    anim.start();
-                    isOpen = false;
-                } else {
-                    /*floatingActionButton1.startAnimation(FabOpen);
-                    floatingActionButton.startAnimation(FabRClockwise);
-                    floatingActionButton1.setClickable(true);*/
-                    // backgroundDimmer.setVisibility(View.VISIBLE);
-
-                    int x = (int) findViewById(R.id.homeConstraintLayout).getRight();
-                    int y = (int) findViewById(R.id.homeConstraintLayout).getBottom();
-
-                    int startRadius = 0;
-                    int endRadius = (int) Math.hypot(getX, getY);
-
-                    //floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(ResourcesCompat.getColor(getResources().android.R.color.white.null)));
-                    //floatingActionButton.setImageResource(R.drawable);
-
-                    Animator anim = ViewAnimationUtils.createCircularReveal(backgroundDimmer, x, y, startRadius, endRadius);
-                    anim.start();
-
-                    isOpen = true;
-                }
+            public void onClick(View view) {
+                Intent myIntent = new Intent(MainActivity.this, AddUser.class);
+                startActivity(myIntent);
             }
         });
     }
@@ -156,17 +114,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     @Override
     public void onBackPressed() {
 
-        if (isOpen == true) {
-            floatingActionButton1.startAnimation(FabClose);
-            floatingActionButton.startAnimation(FabRAntiClockwise);
-            floatingActionButton1.setClickable(false);
-            isOpen = false;
-
-            backgroundDimmer.setVisibility(View.GONE);
-        } else {
-            super.onBackPressed();
-        }
     }
+
+    // Main Methods
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
