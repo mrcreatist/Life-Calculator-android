@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class AddUser extends AppCompatActivity {
 
@@ -29,13 +30,19 @@ public class AddUser extends AppCompatActivity {
             public void onClick(View view) {
 
                 String filename = "User_DB";
-                String string = "Hello World";
+                String firstName = inputLayoutFirstName.getText().toString();
+                String lastName = inputLayoutLastName.getText().toString();
                 try {
                     FileOutputStream outputStream = openFileOutput(filename, MODE_PRIVATE);
-                    outputStream.write(inputLayoutFirstName.getText().toString());
+                    outputStream.write(firstName.getBytes());
+                    outputStream.write(lastName.getBytes());
+                    outputStream.close();
+
                     Toast.makeText(getApplicationContext(), "User Added", Toast.LENGTH_LONG).show();
 
                 } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
