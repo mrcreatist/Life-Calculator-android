@@ -6,12 +6,13 @@ package com.example.abhi.lifecalculator;
 
 public class CardLayout {
 
-    private String userNameString, dayValueString, monthValueString;
+    private String userNameString, dayValueString, monthValueString, horoscopeSign;
 
-    public CardLayout(String userNameString, String dayValueString, String monthValueString) {
+    public CardLayout(String userNameString, String dayValueString, String monthValueString, String horoscopeSign) {
         this.userNameString = userNameString;
         this.dayValueString = dayValueString;
         this.monthValueString = monthValueString;
+        this.horoscopeSign = horoscopeSign;
     }
 
     // getter
@@ -28,11 +29,11 @@ public class CardLayout {
         return dayValueString;
     }
 
-    // setter
-
     public void setDayValueString(String dayValueString) {
         this.dayValueString = dayValueString;
     }
+
+    // setter
 
     public String getMonthValueString() {
         return monthValueString;
@@ -40,5 +41,13 @@ public class CardLayout {
 
     public void setMonthValueString(String monthValueString) {
         this.monthValueString = monthValueString;
+    }
+
+    public String getHoroscopeSign() {
+        return horoscopeSign;
+    }
+
+    public void setHoroscopeSign(String horoscopeSign) {
+        this.horoscopeSign = horoscopeSign;
     }
 }

@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -51,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         currentYear = Calendar.getInstance().get(Calendar.YEAR);
         currentMonth = Calendar.getInstance().get(Calendar.MONTH);
         currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        currentMonth++;
 
         // READING THE DATABASE
         String fileName = "UserDB.txt", temp = "";
@@ -86,16 +86,17 @@ public class MainActivity extends AppCompatActivity {
                 birthMonth = Integer.parseInt(splitDate[1]);
                 birthYear = Integer.parseInt(splitDate[2]);
 
-                Toast.makeText(this, "name: " + splitStringData[i - 1], Toast.LENGTH_SHORT).show();
+/*                Toast.makeText(this, "name: " + splitStringData[i - 1], Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, Integer.toString(calculateDays(birthYear, birthMonth)), Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, Integer.toString(calculateMonths()), Toast.LENGTH_SHORT).show();
-
+*/
                 cardLayoutList = new ArrayList<>();
 
                 CardLayout cardLayoutObject = new CardLayout(
                         "" + splitStringData[i - 1],
                         "" + calculateDays(birthYear, birthMonth),
-                        "" + calculateMonths()
+                        "" + calculateMonths(),
+                        "" + calculateHoroscopeSign(birthMonth, birthDay)
                 );
 
                 cardLayoutList.add(cardLayoutObject);
@@ -156,11 +157,19 @@ public class MainActivity extends AppCompatActivity {
         totalDays += daysLeftInBirthMonth;
 
         // number of months left in completion of year after the birth month
-        while (++birthMonthCopy != 13) {
-            daysLeftInBirthYear += daysInMonth(birthMonthCopy, birthYearCopy);
-            totalMonths++;
+        if (birthYearCopy != currentYear) {
+            while (++birthMonthCopy < 13) {
+                daysLeftInBirthYear += daysInMonth(birthMonthCopy, birthYearCopy);
+                daysLeftInBirthYear++;
+                totalMonths++;
+            }
+            totalDays += daysLeftInBirthYear;
+        } else {
+            while (++birthMonthCopy <= currentMonth) {
+                totalMonths++;
+                totalDays += daysInMonth(birthMonthCopy, birthYearCopy);
+            }
         }
-        totalDays += daysLeftInBirthYear;
 
 
         /*STAGE 2
@@ -186,12 +195,14 @@ public class MainActivity extends AppCompatActivity {
         * */
 
         // calculating number of days till (current month - 1)
-        int i = 0;
-        while (i++ != currentMonth) {
-            daysInCurrentYearExceptCurrentMonth += daysInMonth(i, currentYear);
-            totalMonths++;
+        if (birthYearCopy != currentYear) {
+            int i = 0;
+            while (i++ < currentMonth) {
+                daysInCurrentYearExceptCurrentMonth += daysInMonth(i, currentYear);
+                totalMonths++;
+            }
+            totalDays += daysInCurrentYearExceptCurrentMonth;
         }
-        totalDays += daysInCurrentYearExceptCurrentMonth;
 
         // adding the number of days till date of current month
         totalDays += currentDay;
@@ -210,15 +221,83 @@ public class MainActivity extends AppCompatActivity {
         return totalMonths;
     }
 
-    public int calculateYears() {
-        totalYears = totalMonths / 12;
-        //totalYearsFloat = totalMonths / 12;
-        return totalYears;
-    }
+    public String calculateHoroscopeSign(int birthMonth, int birthDay) {
 
-    public String calculateHoroscopeSign(int birthDay, int birthMonth) {
-        //calculation in progress.
-        return "aquarius";
+        if (birthMonth == 3) {
+            if (birthDay >= 21) {
+                return "Aries";
+            } else {
+                return "Pisces";
+            }
+        } else if (birthMonth == 4) {
+            if (birthDay >= 20) {
+                return "Taurus";
+            } else {
+                return "Aries";
+            }
+        } else if (birthMonth == 5) {
+            if (birthDay >= 21) {
+                return "Gemini";
+            } else {
+                return "Taurus";
+            }
+        } else if (birthMonth == 6) {
+            if (birthDay >= 21) {
+                return "Cancer";
+            } else {
+                return "Gemini";
+            }
+        } else if (birthMonth == 7) {
+            if (birthDay >= 23) {
+                return "Leo";
+            } else {
+                return "Cancer";
+            }
+        } else if (birthMonth == 8) {
+            if (birthDay >= 23) {
+                return "Virgo";
+            } else {
+                return "Leo";
+            }
+        } else if (birthMonth == 9) {
+            if (birthDay >= 23) {
+                return "Libra";
+            } else {
+                return "Virgo";
+            }
+        } else if (birthMonth == 10) {
+            if (birthDay >= 23) {
+                return "Scorpio";
+            } else {
+                return "Libra";
+            }
+        } else if (birthMonth == 11) {
+            if (birthDay >= 22) {
+                return "Sagittarius";
+            } else {
+                return "Scorpio";
+            }
+        } else if (birthMonth == 12) {
+            if (birthDay >= 22) {
+                return "Capricorn";
+            } else {
+                return "Sagittarius";
+            }
+        } else if (birthMonth == 1) {
+            if (birthDay >= 20) {
+                return "Aquarius";
+            } else {
+                return "Capricorn";
+            }
+        } else if (birthMonth == 2) {
+            if (birthDay >= 19) {
+                return "Pisces";
+            } else {
+                return "Aquarius";
+            }
+        } else {
+            return "Unable to find";
+        }
     }
 
     // Supporting Methods

@@ -38,6 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.userName.setText(cardLayoutObject.getUserNameString());
         holder.dayValue.setText(cardLayoutObject.getDayValueString());
         holder.monthValue.setText(cardLayoutObject.getMonthValueString());
+        holder.horoscopeSign.setText(cardLayoutObject.getHoroscopeSign());
     }
 
     @Override
@@ -47,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView userName, dayValue, monthValue;
+        public TextView userName, dayValue, monthValue, horoscopeSign;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -55,6 +56,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             userName = (TextView) itemView.findViewById(R.id.userName);
             dayValue = (TextView) itemView.findViewById(R.id.dayValue);
             monthValue = (TextView) itemView.findViewById(R.id.monthValue);
+            horoscopeSign = (TextView) itemView.findViewById(R.id.horoscopeSign);
         }
 
 
