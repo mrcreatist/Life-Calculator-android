@@ -1,82 +1,57 @@
 package com.example.abhi.lifecalculator;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.Calendar;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class MainActivity extends AppCompatActivity {
 
     int currentYear, currentMonth, currentDay;
     int birthYear, birthMonth, birthDay;
     int daysLeftInBirthMonth, daysLeftInBirthYear, daysInMidYears, daysInCurrentYearExceptCurrentMonth, totalDays;
     int totalMonths, residueDays;
     int totalYears;
-
-    int getX, getY;
-    // double totalYearsFloat;
-
-    TextView userName, yearNumber, monthNumber;
-    EditText getName;
     FloatingActionButton floatingActionButton;
-    boolean isOpen = false;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<CardLayout> cardLayoutList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userName = (TextView) findViewById(R.id.userName);
-        yearNumber = (TextView) findViewById(R.id.yearNumber);
-        monthNumber = (TextView) findViewById(R.id.monthNumber);
-        getName = (EditText) findViewById(R.id.editText);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        final Button submitButton = (Button) findViewById(R.id.submitButton);
-        final Button selectDate = (Button) findViewById(R.id.selectDate);
+        cardLayoutList = new ArrayList<>();
 
-        userName.setText("");
-        yearNumber.setText("");
-        monthNumber.setText("");
+        for (int i = 0; i < 20; i++) {
+            CardLayout cardLayoutObject = new CardLayout(
+                    "UserName" + i + 1,
+                    "" + i + 1,
+                    "" + i + 1
+            );
+            cardLayoutList.add(cardLayoutObject);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userName.setText(getName.getText());
-                int x = calculateDays(birthYear, birthMonth);
-                monthNumber.setText(Integer.toString(calculateMonths()));
-                yearNumber.setText(Integer.toString(calculateYears()));
-            }
-        });
+        }
 
-        selectDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Calendar c = Calendar.getInstance();
-
-                currentYear = c.get(Calendar.YEAR);
-                currentMonth = c.get(Calendar.MONTH);
-                currentDay = c.get(Calendar.DAY_OF_MONTH);
-
-                // Toast.makeText(MainActivity.this, currentDay + "-" + currentMonth + "-" + currentYear, Toast.LENGTH_SHORT).show();
-
-                birthYear = c.get(Calendar.YEAR);
-                birthMonth = c.get(Calendar.MONTH);
-                birthDay = c.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, MainActivity.this, birthYear, birthMonth, birthDay);
-                datePickerDialog.show();
-            }
-        });
+        adapter = new MyAdapter(cardLayoutList, this);
+        recyclerView.setAdapter(adapter);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
 
@@ -86,6 +61,24 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                 startActivity(myIntent);
             }
         });
+
+        // READING THE DATABASE
+        String fileName = "UserDB.txt";
+        try {
+            FileInputStream fin = openFileInput(fileName);
+            int c;
+            String temp = "";
+            while ((c = fin.read()) != -1) {
+                temp = temp + Character.toString((char) c);
+            }
+            Toast.makeText(this, "Database successfully accessed", Toast.LENGTH_SHORT).show();
+            fin.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -94,14 +87,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     // Main Methods
-
-    @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        birthYear = i;
-        birthMonth = ++i1;
-        birthDay = i2;
-
-    }
 
     public int calculateDays(int birthYearCopy, int birthMonthCopy) {
         totalDays = 0;

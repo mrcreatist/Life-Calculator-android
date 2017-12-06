@@ -10,154 +10,22 @@
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:fontFamily="sans-serif"
-        android:text="Welcome"
+        android:text="Let's Count"
         android:textAllCaps="false"
         android:textColor="@color/Black"
-        android:textSize="40dp"
+        android:textSize="50dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="48dp"
-        android:fontFamily="sans-serif"
-        android:gravity="left"
-        android:text="Abhishek Verma"
-        android:textAlignment="gravity"
-        android:textColor="@color/Black"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appTitle" />
-
-    <TextView
-        android:id="@+id/horoscope"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:gravity="left"
-        android:text="aquarius"
-        android:textAllCaps="true"
-        android:textColor="@color/Black"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/userName"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
-
-    <TextView
-        android:id="@+id/yearNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="sans-serif"
-        android:gravity="left"
-        android:text="XX"
-        android:textAllCaps="true"
-        android:textColor="@color/Black"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/horoscope"
-        app:layout_constraintTop_toBottomOf="@+id/horoscope" />
-
-    <TextView
-        android:id="@+id/yearText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="8dp"
-        android:fontFamily="sans-serif"
-        android:gravity="left"
-        android:text="year"
-        android:textAllCaps="true"
-        android:textColor="@color/Black"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/yearNumber"
-        app:layout_constraintStart_toEndOf="@+id/yearNumber" />
-
-    <TextView
-        android:id="@+id/monthNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="sans-serif"
-        android:gravity="left"
-        android:text="YY"
-        android:textAllCaps="true"
-        android:textColor="@color/Black"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/yearText"
-        app:layout_constraintTop_toBottomOf="@+id/horoscope" />
-
-    <TextView
-        android:id="@+id/monthText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="8dp"
-        android:fontFamily="sans-serif"
-        android:gravity="left"
-        android:text="months"
-        android:textAllCaps="true"
-        android:textColor="@color/Black"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/monthNumber"
-        app:layout_constraintStart_toEndOf="@+id/monthNumber" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
-        android:ems="10"
-        android:gravity="left"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monthNumber" />
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="128dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:text="Submit"
-        app:layout_constraintEnd_toEndOf="@+id/selectDate"
-        app:layout_constraintHorizontal_bias="0.375"
-        app:layout_constraintStart_toStartOf="@+id/selectDate"
-        app:layout_constraintTop_toBottomOf="@+id/selectDate" />
-
-    <Button
-        android:id="@+id/selectDate"
-        android:layout_width="212dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Select Date"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="66dp"
         android:layout_height="66dp"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
         android:clickable="true"
         android:elevation="5dp"
         android:src="@android:drawable/ic_dialog_info"
@@ -174,9 +42,25 @@
         android:layout_marginTop="24dp"
         android:text="Life Calculator"
         android:textAllCaps="true"
-        android:textSize="10dp"
+        android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="fill_parent"
+        android:layout_height="515dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
