@@ -13,15 +13,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     int currentYear, currentMonth, currentDay;
     int birthYear, birthMonth, birthDay;
-    int daysLeftInBirthMonth, daysLeftInBirthYear, daysInMidYears, daysInCurrentYearExceptCurrentMonth, totalDays;
-    int totalMonths, residueDays;
-    int totalYears;
+    int daysLeftInBirthMonth, daysLeftInBirthYear, daysInMidYears, daysInCurrentYearExceptCurrentMonth;
+    int totalDays, totalMonths, totalYears, residueDays;
+
     FloatingActionButton floatingActionButton;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -33,26 +34,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        cardLayoutList = new ArrayList<>();
-
-        for (int i = 0; i < 20; i++) {
-            CardLayout cardLayoutObject = new CardLayout(
-                    "UserName" + i + 1,
-                    "" + i + 1,
-                    "" + i + 1
-            );
-            cardLayoutList.add(cardLayoutObject);
-
-        }
-
-        adapter = new MyAdapter(cardLayoutList, this);
-        recyclerView.setAdapter(adapter);
-
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -62,23 +47,86 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // getting current day details
+        currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
         // READING THE DATABASE
-        String fileName = "UserDB.txt";
+        String fileName = "UserDB.txt", temp = "";
         try {
+            // opening user database
             FileInputStream fin = openFileInput(fileName);
             int c;
-            String temp = "";
             while ((c = fin.read()) != -1) {
+
+                //collecting data in temp
                 temp = temp + Character.toString((char) c);
             }
-            Toast.makeText(this, "Database successfully accessed", Toast.LENGTH_SHORT).show();
             fin.close();
+
+            //splitting data
+            String splitStringData[] = temp.split("\n");
+
+/*            for(int i = 0; i < splitStringData.length; i++) {
+                Toast.makeText(this, splitStringData[i], Toast.LENGTH_SHORT).show();
+            }*/
+
+            int splitStringLength = splitStringData.length;
+
+//            Toast.makeText(this, Integer.toString(splitStringLength), Toast.LENGTH_SHORT).show();
+
+            for (int i = 1; i < splitStringLength; i += 2) {
+
+                //Toast.makeText(this, Integer.toString(i), Toast.LENGTH_SHORT).show();
+
+                String splitDate[] = splitStringData[i].split("/");
+
+                birthDay = Integer.parseInt(splitDate[0]);
+                birthMonth = Integer.parseInt(splitDate[1]);
+                birthYear = Integer.parseInt(splitDate[2]);
+
+                Toast.makeText(this, "name: " + splitStringData[i - 1], Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, Integer.toString(calculateDays(birthYear, birthMonth)), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, Integer.toString(calculateMonths()), Toast.LENGTH_SHORT).show();
+
+                cardLayoutList = new ArrayList<>();
+
+                CardLayout cardLayoutObject = new CardLayout(
+                        "" + splitStringData[i - 1],
+                        "" + calculateDays(birthYear, birthMonth),
+                        "" + calculateMonths()
+                );
+
+                cardLayoutList.add(cardLayoutObject);
+
+                adapter = new MyAdapter(cardLayoutList, this);
+                recyclerView.setAdapter(adapter);
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+
+/*
+        cardLayoutList = new ArrayList<>();
+
+        for (int i = 0; i < splitStringData.length; i = i + 2) {
+            CardLayout cardLayoutObject = new CardLayout(
+                    "" + splitStringData[i],
+                    "" + i + 1,
+                    "" + i + 1
+            );
+            cardLayoutList.add(cardLayoutObject);
+        }
+
+        adapter = new MyAdapter(cardLayoutList, this);
+        recyclerView.setAdapter(adapter);*/
     }
 
     @Override
@@ -89,10 +137,8 @@ public class MainActivity extends AppCompatActivity {
     // Main Methods
 
     public int calculateDays(int birthYearCopy, int birthMonthCopy) {
-        totalDays = 0;
-        // int birthYearCopy = birthYear;
-        // int birthMonthCopy = birthMonth;
 
+        totalDays = 0;
         daysLeftInBirthMonth = 0;
         daysLeftInBirthYear = 0;
         daysInMidYears = 0;
@@ -123,13 +169,15 @@ public class MainActivity extends AppCompatActivity {
         * mid years = from (birth year + 1) till (current year - 1)
         * */
 
-        int tempmonth = 0;
-        while (++birthYearCopy != currentYear) {
-            daysInMidYears += daysInYear(birthYearCopy);
-            tempmonth += 12;
+        int tempMonth = 0;
+        if (birthYearCopy != currentYear) {
+            while (++birthYearCopy != currentYear) {
+                daysInMidYears += daysInYear(birthYearCopy);
+                tempMonth += 12;
+            }
+            totalMonths += tempMonth;
+            totalDays += daysInMidYears;
         }
-        totalMonths += tempmonth;
-        totalDays += daysInMidYears;
 
 
         /*STAGE 3
@@ -166,6 +214,11 @@ public class MainActivity extends AppCompatActivity {
         totalYears = totalMonths / 12;
         //totalYearsFloat = totalMonths / 12;
         return totalYears;
+    }
+
+    public String calculateHoroscopeSign(int birthDay, int birthMonth) {
+        //calculation in progress.
+        return "aquarius";
     }
 
     // Supporting Methods
