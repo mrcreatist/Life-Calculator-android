@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -86,10 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 birthMonth = Integer.parseInt(splitDate[1]);
                 birthYear = Integer.parseInt(splitDate[2]);
 
-/*                Toast.makeText(this, "name: " + splitStringData[i - 1], Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, Integer.toString(calculateDays(birthYear, birthMonth)), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, Integer.toString(calculateMonths()), Toast.LENGTH_SHORT).show();
-*/
                 cardLayoutList = new ArrayList<>();
 
                 CardLayout cardLayoutObject = new CardLayout(
@@ -152,25 +149,24 @@ public class MainActivity extends AppCompatActivity {
         * */
 
         // number of days left in completion of birth month
-        int monthValue = daysInMonth(birthMonthCopy, birthYearCopy);
-        daysLeftInBirthMonth = (monthValue - birthDay);
+        daysLeftInBirthMonth = (daysInMonth(birthMonthCopy, birthYearCopy) - birthDay);
         totalDays += daysLeftInBirthMonth;
 
-        // number of months left in completion of year after the birth month
+        // number of months left in completion of the birth year after the birth month
         if (birthYearCopy != currentYear) {
-            while (++birthMonthCopy < 13) {
+            while (++birthMonthCopy != 13) {
                 daysLeftInBirthYear += daysInMonth(birthMonthCopy, birthYearCopy);
-                daysLeftInBirthYear++;
                 totalMonths++;
             }
             totalDays += daysLeftInBirthYear;
         } else {
-            while (++birthMonthCopy <= currentMonth) {
+            while (++birthMonthCopy != currentMonth) {
                 totalMonths++;
                 totalDays += daysInMonth(birthMonthCopy, birthYearCopy);
             }
         }
 
+        Toast.makeText(this, "Stage 1 result: " + totalDays, Toast.LENGTH_SHORT).show();
 
         /*STAGE 2
         *
@@ -178,16 +174,17 @@ public class MainActivity extends AppCompatActivity {
         * mid years = from (birth year + 1) till (current year - 1)
         * */
 
-        int tempMonth = 0;
         if (birthYearCopy != currentYear) {
-            while (++birthYearCopy != currentYear) {
-                daysInMidYears += daysInYear(birthYearCopy);
+            int tempMonth = 0, birthYearCopy1 = birthYearCopy;
+            while (++birthYearCopy1 != currentYear) {
+                daysInMidYears += daysInYear(birthYearCopy1);
                 tempMonth += 12;
             }
             totalMonths += tempMonth;
             totalDays += daysInMidYears;
         }
 
+        Toast.makeText(this, "Stage 2 result: " + totalDays, Toast.LENGTH_SHORT).show();
 
         /*STAGE 3
         *
@@ -197,8 +194,9 @@ public class MainActivity extends AppCompatActivity {
         // calculating number of days till (current month - 1)
         if (birthYearCopy != currentYear) {
             int i = 0;
-            while (i++ < currentMonth) {
+            while (++i < currentMonth) {
                 daysInCurrentYearExceptCurrentMonth += daysInMonth(i, currentYear);
+                Toast.makeText(this, "i: " + i + "days: " + daysInCurrentYearExceptCurrentMonth, Toast.LENGTH_SHORT).show();
                 totalMonths++;
             }
             totalDays += daysInCurrentYearExceptCurrentMonth;
@@ -206,6 +204,8 @@ public class MainActivity extends AppCompatActivity {
 
         // adding the number of days till date of current month
         totalDays += currentDay;
+
+        Toast.makeText(this, "Stage 2 result: " + totalDays, Toast.LENGTH_SHORT).show();
 
         return totalDays;
     }
