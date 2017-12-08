@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -166,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        Toast.makeText(this, "Stage 1 result: " + totalDays, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Stage 1 result: " + totalDays, Toast.LENGTH_SHORT).show();
 
         /*STAGE 2
         *
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
             totalDays += daysInMidYears;
         }
 
-        Toast.makeText(this, "Stage 2 result: " + totalDays, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Stage 2 result: " + totalDays, Toast.LENGTH_SHORT).show();
 
         /*STAGE 3
         *
@@ -196,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             int i = 0;
             while (++i < currentMonth) {
                 daysInCurrentYearExceptCurrentMonth += daysInMonth(i, currentYear);
-                Toast.makeText(this, "i: " + i + "days: " + daysInCurrentYearExceptCurrentMonth, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "i: " + i + "days: " + daysInCurrentYearExceptCurrentMonth, Toast.LENGTH_SHORT).show();
                 totalMonths++;
             }
             totalDays += daysInCurrentYearExceptCurrentMonth;
@@ -205,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         // adding the number of days till date of current month
         totalDays += currentDay;
 
-        Toast.makeText(this, "Stage 2 result: " + totalDays, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Stage 2 result: " + totalDays, Toast.LENGTH_SHORT).show();
 
         return totalDays;
     }
