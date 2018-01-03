@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Life Calculator</string>
+
+    <string name="birthDetails">Birth Details</string>
+    <string name="birthDate">Date of Birth</string>
+    <string name="birthDay">Day of Birth</string>
+    <string name="timeDetails">Time Details</string>
+    <string name="hoursCompleted">Hours Completed</string>
+    <string name="minutesCompleted">Minutes Completed</string>
+    <string name="secondsCompleted">Seconds Completed</string>
+    <string name="dayDetails">Day Details</string>
+    <string name="daysCompleted">Days</string>
+    <string name="weeksCompleted">Weeks</string>
+    <string name="monthsCompleted">Months</string>
+
 </resources>

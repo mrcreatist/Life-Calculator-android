@@ -68,17 +68,9 @@ public class MainActivity extends AppCompatActivity {
             //splitting data
             String splitStringData[] = temp.split("\n");
 
-/*            for(int i = 0; i < splitStringData.length; i++) {
-                Toast.makeText(this, splitStringData[i], Toast.LENGTH_SHORT).show();
-            }*/
-
             int splitStringLength = splitStringData.length;
 
-//            Toast.makeText(this, Integer.toString(splitStringLength), Toast.LENGTH_SHORT).show();
-
             for (int i = 1; i < splitStringLength; i += 2) {
-
-                //Toast.makeText(this, Integer.toString(i), Toast.LENGTH_SHORT).show();
 
                 String splitDate[] = splitStringData[i].split("/");
 
@@ -108,22 +100,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-/*
-        cardLayoutList = new ArrayList<>();
-
-        for (int i = 0; i < splitStringData.length; i = i + 2) {
-            CardLayout cardLayoutObject = new CardLayout(
-                    "" + splitStringData[i],
-                    "" + i + 1,
-                    "" + i + 1
-            );
-            cardLayoutList.add(cardLayoutObject);
-        }
-
-        adapter = new MyAdapter(cardLayoutList, this);
-        recyclerView.setAdapter(adapter);*/
     }
 
     @Override

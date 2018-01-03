@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, cardLayoutObject.getUserNameString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, cardLayoutObject.getUserNameString(), Toast.LENGTH_SHORT).show();
                 Intent myIntent = new Intent(context.getApplicationContext(), Insight.class);
                 context.getApplicationContext().startActivity(myIntent);
             }
