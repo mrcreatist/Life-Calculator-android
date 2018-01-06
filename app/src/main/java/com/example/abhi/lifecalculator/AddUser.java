@@ -1,11 +1,9 @@
 package com.example.abhi.lifecalculator;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -13,25 +11,29 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 
 
 public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
+    private static final String fileName = "UserDB.txt";
+
     TextView name;
-    Button addUserButton, selectDateButton, readData;
+    Button addUserButton, selectDateButton;
+
     int birthYear, birthMonth, birthDay;
-    int flag;
+    int id = 0, flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
-
-        flag = 0;
 
         name = (EditText) findViewById(R.id.inputName);
         addUserButton = (Button) findViewById(R.id.addUser);
@@ -47,6 +49,8 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddUser.this, AddUser.this, birthYear, birthMonth, birthDay);
                 datePickerDialog.show();
+
+                selectDateButton.setText(birthDay + "/" + birthMonth + "/" + birthYear);
             }
         });
 
@@ -57,23 +61,15 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
                 if (name.getText().toString().matches("")) {
                     Toast.makeText(AddUser.this, "Name field is empty", Toast.LENGTH_SHORT).show();
                 } else if (selectDateButton.getText().toString().matches("Select Date")) {
-                    Toast.makeText(AddUser.this, "Please select a date first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddUser.this, "Date field is empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Data entered properly
-                    String fileName = "UserDB.txt";
-                    String data;
                     try {
-                        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE));
-                        data = name.getText().toString() + "\n";
-                        outputStreamWriter.write(data);
-                        data = selectDateButton.getText().toString();
-                        outputStreamWriter.write(data);
-                        Toast.makeText(AddUser.this, "Data successfully written", Toast.LENGTH_SHORT).show();
-                        outputStreamWriter.close();
-                    } catch (FileNotFoundException e) {
+                        writeToFile(getID() + "-");
+                        writeToFile(name.getText().toString() + "-");
+                        writeToFile(selectDateButton.getText().toString() + "-");
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    } catch (IOException e) {
-                        Log.e("Exception", "File write failed: " + e.toString());
+                        Toast.makeText(AddUser.this, "addUser: Exception occurred", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -86,7 +82,6 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
         birthMonth = ++i1;
         birthDay = i2;
         selectDateButton.setText(birthDay + "/" + birthMonth + "/" + birthYear);
-
         flag++;
     }
 
@@ -94,5 +89,75 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
     public void onBackPressed() {
         Intent myIntent = new Intent(AddUser.this, MainActivity.class);
         startActivity(myIntent);
+    }
+
+    // SUPPORTING OPERATIONS
+
+    int getID() {
+        try {
+            String s = readFromFile();
+            if (s != "") {
+                String z[] = s.split("-");
+                int currentID = Integer.parseInt(z[z.length - 3]);
+                currentID++;
+                return currentID;
+            } else {
+                return 1;
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Exception in generating ID", Toast.LENGTH_SHORT).show();
+        }
+        return 0;
+    }
+
+    void writeToFile(String data) {
+        String text = readFromFile() + data;
+        FileOutputStream fileOutputStream = null;
+
+        try {
+            fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
+            fileOutputStream.write(text.getBytes());
+            Toast.makeText(this, "text written to " + getFilesDir() + "/" + fileName, Toast.LENGTH_SHORT).show();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    String readFromFile() {
+        String temp = "";
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = openFileInput(fileName);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String text;
+            while ((text = bufferedReader.readLine()) != null) {
+                temp += text;
+            }
+            return temp;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return temp;
     }
 }

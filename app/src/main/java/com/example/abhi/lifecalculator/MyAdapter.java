@@ -71,15 +71,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             monthValue = (TextView) itemView.findViewById(R.id.monthValue);
             horoscopeSign = (TextView) itemView.findViewById(R.id.horoscopeSign);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
-
-/*            view = itemView;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent myIntent = new Intent(MainActivity.this, Insight.class);
-                    .startActivity(myIntent);
-                }
-            });*/
         }
     }
 }

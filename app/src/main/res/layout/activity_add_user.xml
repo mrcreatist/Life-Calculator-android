@@ -48,6 +48,7 @@
 
     <Button
         android:id="@+id/selectDate"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="259dp"
         android:layout_height="46dp"
         android:layout_marginTop="8dp"

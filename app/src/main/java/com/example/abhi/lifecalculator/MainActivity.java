@@ -7,15 +7,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String fileName = "UserDB.txt";
 
     int currentYear, currentMonth, currentDay;
     int birthYear, birthMonth, birthDay;
@@ -53,58 +58,73 @@ public class MainActivity extends AppCompatActivity {
         currentMonth++;
 
         // READING THE DATABASE
-        String fileName = "UserDB.txt", temp = "";
-        try {
-            // opening user database
-            FileInputStream fin = openFileInput(fileName);
-            int c;
-            while ((c = fin.read()) != -1) {
+        String temp = readFromFile();
 
-                //collecting data in temp
-                temp = temp + Character.toString((char) c);
-            }
-            fin.close();
+        //splitting data
+        String splitStringData[] = temp.split("-");
+        int splitStringLength = splitStringData.length;
 
-            //splitting data
-            String splitStringData[] = temp.split("\n");
+        //Toast.makeText(this, "splitStringData: " + splitStringData.length, Toast.LENGTH_SHORT).show();
 
-            int splitStringLength = splitStringData.length;
+        cardLayoutList = new ArrayList<>();
 
-            for (int i = 1; i < splitStringLength; i += 2) {
+        for (int i = 0; i < (splitStringLength / 3); i++) {
 
-                String splitDate[] = splitStringData[i].split("/");
+            Toast.makeText(this, "i:" + i, Toast.LENGTH_SHORT).show();
 
-                birthDay = Integer.parseInt(splitDate[0]);
-                birthMonth = Integer.parseInt(splitDate[1]);
-                birthYear = Integer.parseInt(splitDate[2]);
+            String splitDate[] = splitStringData[(i * 3) + 2].split("/");
 
-                cardLayoutList = new ArrayList<>();
+            birthDay = Integer.parseInt(splitDate[0]);
+            birthMonth = Integer.parseInt(splitDate[1]);
+            birthYear = Integer.parseInt(splitDate[2]);
+
+            //Toast.makeText(this, birthDay +"/"+ birthMonth +"/"+ birthYear, Toast.LENGTH_SHORT).show();
 
                 CardLayout cardLayoutObject = new CardLayout(
-                        "" + splitStringData[i - 1],
-                        "" + calculateDays(birthYear, birthMonth),
-                        "" + calculateMonths(),
-                        "" + calculateHoroscopeSign(birthMonth, birthDay)
+                        "1" + splitStringData[(i * 3) + 1],
+                        "2" + calculateDays(birthYear, birthMonth),
+                        "3" + calculateMonths(),
+                        "4" + calculateHoroscopeSign(birthMonth, birthDay)
                 );
 
                 cardLayoutList.add(cardLayoutObject);
 
                 adapter = new MyAdapter(cardLayoutList, this);
                 recyclerView.setAdapter(adapter);
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     public void onBackPressed() {
 
+    }
+
+    String readFromFile() {
+        String temp = "";
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = openFileInput(fileName);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String text;
+            while ((text = bufferedReader.readLine()) != null) {
+                temp += text;
+            }
+            return temp;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return temp;
     }
 
     // Main Methods
