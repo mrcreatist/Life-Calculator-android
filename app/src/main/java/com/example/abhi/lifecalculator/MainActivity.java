@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -24,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     int currentYear, currentMonth, currentDay;
     int birthYear, birthMonth, birthDay;
-    int daysLeftInBirthMonth, daysLeftInBirthYear, daysInMidYears, daysInCurrentYearExceptCurrentMonth;
-    int totalDays, totalMonths, totalYears, residueDays;
 
     FloatingActionButton floatingActionButton;
     private RecyclerView recyclerView;
@@ -37,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        floatingActionButton = findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -64,33 +61,32 @@ public class MainActivity extends AppCompatActivity {
         String splitStringData[] = temp.split("-");
         int splitStringLength = splitStringData.length;
 
-        //Toast.makeText(this, "splitStringData: " + splitStringData.length, Toast.LENGTH_SHORT).show();
+        int[] receivingArray = new int[2];
 
         cardLayoutList = new ArrayList<>();
 
         for (int i = 0; i < (splitStringLength / 3); i++) {
 
-            Toast.makeText(this, "i:" + i, Toast.LENGTH_SHORT).show();
-
+            //Toast.makeText(this, "i:" + i, Toast.LENGTH_SHORT).show();
             String splitDate[] = splitStringData[(i * 3) + 2].split("/");
 
             birthDay = Integer.parseInt(splitDate[0]);
             birthMonth = Integer.parseInt(splitDate[1]);
             birthYear = Integer.parseInt(splitDate[2]);
 
-            //Toast.makeText(this, birthDay +"/"+ birthMonth +"/"+ birthYear, Toast.LENGTH_SHORT).show();
+            receivingArray = countDays(birthDay, birthMonth, birthYear, currentDay, currentMonth, currentYear);
 
-                CardLayout cardLayoutObject = new CardLayout(
-                        "1" + splitStringData[(i * 3) + 1],
-                        "2" + calculateDays(birthYear, birthMonth),
-                        "3" + calculateMonths(),
-                        "4" + calculateHoroscopeSign(birthMonth, birthDay)
-                );
+            CardLayout cardLayoutObject = new CardLayout(
+                    "" + splitStringData[(i * 3) + 1],
+                    "" + receivingArray[0],
+                    "" + receivingArray[1],
+                    "" + calculateHoroscopeSign(birthMonth, birthDay)
+            );
 
-                cardLayoutList.add(cardLayoutObject);
+            cardLayoutList.add(cardLayoutObject);
 
-                adapter = new MyAdapter(cardLayoutList, this);
-                recyclerView.setAdapter(adapter);
+            adapter = new MyAdapter(cardLayoutList, this);
+            recyclerView.setAdapter(adapter);
         }
     }
 
@@ -128,93 +124,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Main Methods
-
-    public int calculateDays(int birthYearCopy, int birthMonthCopy) {
-
-        totalDays = 0;
-        daysLeftInBirthMonth = 0;
-        daysLeftInBirthYear = 0;
-        daysInMidYears = 0;
-        daysInCurrentYearExceptCurrentMonth = 0;
-        totalMonths = 0;
-
-        /*STAGE 1
-        *
-        * Calculating the number of days required to complete the birth year
-        * */
-
-        // number of days left in completion of birth month
-        daysLeftInBirthMonth = (daysInMonth(birthMonthCopy, birthYearCopy) - birthDay);
-        totalDays += daysLeftInBirthMonth;
-
-        // number of months left in completion of the birth year after the birth month
-        if (birthYearCopy != currentYear) {
-            while (++birthMonthCopy != 13) {
-                daysLeftInBirthYear += daysInMonth(birthMonthCopy, birthYearCopy);
-                totalMonths++;
-            }
-            totalDays += daysLeftInBirthYear;
-        } else {
-            while (++birthMonthCopy != currentMonth) {
-                totalMonths++;
-                totalDays += daysInMonth(birthMonthCopy, birthYearCopy);
-            }
-        }
-
-//        Toast.makeText(this, "Stage 1 result: " + totalDays, Toast.LENGTH_SHORT).show();
-
-        /*STAGE 2
-        *
-        * Calculating the number of days in the mid years.
-        * mid years = from (birth year + 1) till (current year - 1)
-        * */
-
-        if (birthYearCopy != currentYear) {
-            int tempMonth = 0, birthYearCopy1 = birthYearCopy;
-            while (++birthYearCopy1 != currentYear) {
-                daysInMidYears += daysInYear(birthYearCopy1);
-                tempMonth += 12;
-            }
-            totalMonths += tempMonth;
-            totalDays += daysInMidYears;
-        }
-
-        //Toast.makeText(this, "Stage 2 result: " + totalDays, Toast.LENGTH_SHORT).show();
-
-        /*STAGE 3
-        *
-        * Calculating the number of Days of current year
-        * */
-
-        // calculating number of days till (current month - 1)
-        if (birthYearCopy != currentYear) {
-            int i = 0;
-            while (++i < currentMonth) {
-                daysInCurrentYearExceptCurrentMonth += daysInMonth(i, currentYear);
-                //Toast.makeText(this, "i: " + i + "days: " + daysInCurrentYearExceptCurrentMonth, Toast.LENGTH_SHORT).show();
-                totalMonths++;
-            }
-            totalDays += daysInCurrentYearExceptCurrentMonth;
-        }
-
-        // adding the number of days till date of current month
-        totalDays += currentDay;
-
-//        Toast.makeText(this, "Stage 2 result: " + totalDays, Toast.LENGTH_SHORT).show();
-
-        return totalDays;
-    }
-
-    public int calculateMonths() {
-        residueDays = daysLeftInBirthMonth + currentDay;
-
-        while (residueDays > 29) {
-            residueDays -= 30;
-            totalMonths++;
-        }
-
-        return totalMonths;
-    }
 
     public String calculateHoroscopeSign(int birthMonth, int birthDay) {
 
@@ -295,74 +204,131 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Supporting Methods
-
-    public int daysInMonth(int month, int year) {
-
-        int monthValue = 0;
-        // jan, feb, mar, apr, may, jun, jul
-        if (month <= 7) {
-            // feb, apr, jun
-            if (month % 2 == 0) {
-                // exceptional case: feb
-                if (month == 2) {
-                    // check for leap year
-                    if (year % 4 == 0) {
-                        // check for centurial leap year
-                        if (year % 100 == 0) {
-                            year = year / 100;
-                            if (year % 4 == 0) {
-                                monthValue = 29;
-                            } else {
-                                monthValue = 28;
-                            }
-                        } else {
-                            monthValue = 29;
-                        }
-                    } else {
-                        monthValue = 28;
-                    }
-                } else {
-                    monthValue = 30;
-                }
-            }
-            // jan mar may jul
-            else {
-                monthValue = 31;
-            }
-        }
-        // aug, sep, oct, nov, dec
-        else {
-            // aug, oct, dec
-            if (month % 2 == 0) {
-                monthValue = 31;
-            }
-            // sep, nov
-            else {
-                monthValue = 30;
-            }
-        }
-
-        // returning final value
-        return monthValue;
-    }
-
-    public int daysInYear(int year) {
-        // check for leap year
-        if (year % 4 == 0) {
-            // check for centurial year
-            if (year % 100 == 0) {
-                year = year / 100;
-                if (year % 4 == 0) {
-                    return 366;
-                } else {
-                    return 365;
-                }
+    int calculateAge(int birthDay, int birthMonth, int birthYear, int currentDay, int currentMonth, int currentYear) {
+        int year = currentYear - birthYear;
+        if (currentMonth > birthMonth) {
+            return year;
+        } else if (currentMonth == birthMonth) {
+            if (currentDay > birthDay || currentDay == birthDay) {
+                return year;
             } else {
-                return 366;
+                return --year;
             }
         } else {
-            return 365;
+            return --year;
+        }
+    }
+
+    int[] countDays(int birthDay, int birthMonth, int birthYear, int currentDay, int currentMonth, int currentYear) {
+        int[] valueReturn = new int[2];
+        int totalDays = 0, totalMonths = 0;
+        for (int year = birthYear; year <= currentYear; year++) {
+            //System.out.println("year:" + year);
+            for (int month = monthOfTheYear(year, birthMonth, birthYear); month <= monthInYear(month, year, currentMonth, currentYear); month++) {
+                //System.out.print("month: " + month + " Days: ");
+                for (int day = firstDayOfTheMonth(month, year, birthDay, birthMonth, birthYear); day <= totalDaysInMonth(month, year, currentDay, currentMonth, currentYear); day++) {
+                    //System.out.print(day + " ");
+                    totalDays++;
+                }
+                totalMonths++;
+                //System.out.println();
+            }
+            //System.out.println();
+        }
+        valueReturn[0] = totalDays;
+        valueReturn[1] = totalMonths;
+        return valueReturn;
+    }
+
+    int monthOfTheYear(int year, int birthMonth, int birthYear) {
+        if (year == birthYear) {
+            return birthMonth;
+        } else {
+            return 1;
+        }
+    }
+
+    int monthInYear(int month, int year, int currentMonth, int currentYear) {
+        if (year == currentYear) {
+            if (month == (currentMonth + 1)) {
+                return 0;
+            } else {
+                return month;
+            }
+        } else {
+            if (month >= 13) {
+                return 0;
+            } else {
+                return month;
+            }
+        }
+    }
+
+    int firstDayOfTheMonth(int month, int year, int birthDay, int birthMonth, int birthYear) {
+        if (year == birthYear) {
+            if (month == birthMonth) {
+                return ++birthDay;
+            } else {
+                return 1;
+            }
+        } else {
+            return 1;
+        }
+    }
+
+    int totalDaysInMonth(int month, int year, int currentDay, int currentMonth, int currentYear) {
+        if (year == currentYear) {
+            if (month == currentMonth) {
+                return currentDay;
+            } else {
+                return daysInMonth(month, year);
+            }
+        } else {
+            return daysInMonth(month, year);
+        }
+    }
+
+    // Supporting Methods
+
+    int daysInMonth(int month, int year) {
+        if (month > 7) {
+            if (month % 2 == 0) {
+                return 31;
+            } else {
+                return 30;
+            }
+        } else {
+            if (month == 2) {
+                if (isLeapYear(year)) {
+                    return 29;
+                } else {
+                    return 28;
+                }
+            } else {
+                if (month % 2 == 0) {
+                    return 30;
+                } else {
+                    return 31;
+                }
+            }
+        }
+
+    }
+
+    boolean isLeapYear(int year) {
+        if (year % 4 == 0) {
+            if (year % 100 == 0) {
+                year /= 100;
+                if (year % 4 == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return false;
         }
     }
 }
