@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         String splitStringData[] = temp.split("-");
         int splitStringLength = splitStringData.length;
 
-        int[] receivingArray = new int[2];
+        int[] receivingArray;
 
         cardLayoutList = new ArrayList<>();
 
@@ -240,6 +240,8 @@ public class MainActivity extends AppCompatActivity {
         return valueReturn;
     }
 
+    // Supporting Methods
+
     int monthOfTheYear(int year, int birthMonth, int birthYear) {
         if (year == birthYear) {
             return birthMonth;
@@ -287,8 +289,6 @@ public class MainActivity extends AppCompatActivity {
             return daysInMonth(month, year);
         }
     }
-
-    // Supporting Methods
 
     int daysInMonth(int month, int year) {
         if (month > 7) {

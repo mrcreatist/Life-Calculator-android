@@ -2,6 +2,7 @@ package com.example.abhi.lifecalculator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,7 +18,6 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    public View view;
     private List<CardLayout> cardLayoutList;
     private Context context;
 
@@ -28,29 +28,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_card, parent, false);
-
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         final CardLayout cardLayoutObject = cardLayoutList.get(position);
 
         holder.userName.setText(cardLayoutObject.getUserNameString());
         holder.dayValue.setText(cardLayoutObject.getDayValueString());
         holder.monthValue.setText(cardLayoutObject.getMonthValueString());
         holder.horoscopeSign.setText(cardLayoutObject.getHoroscopeSign());
-
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(context, cardLayoutObject.getUserNameString(), Toast.LENGTH_SHORT).show();
-                Intent myIntent = new Intent(context.getApplicationContext(), Insight.class);
-                context.getApplicationContext().startActivity(myIntent);
-            }
-        });
     }
 
     @Override
@@ -58,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return cardLayoutList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView userName, dayValue, monthValue, horoscopeSign;
         public CardView cardView;
@@ -66,11 +55,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ViewHolder(final View itemView) {
             super(itemView);
 
-            userName = (TextView) itemView.findViewById(R.id.userName);
-            dayValue = (TextView) itemView.findViewById(R.id.dayValue);
-            monthValue = (TextView) itemView.findViewById(R.id.monthValue);
-            horoscopeSign = (TextView) itemView.findViewById(R.id.horoscopeSign);
-            cardView = (CardView) itemView.findViewById(R.id.cardView);
+            itemView.setOnClickListener(this);
+
+            userName = itemView.findViewById(R.id.userName);
+            dayValue = itemView.findViewById(R.id.dayValue);
+            monthValue = itemView.findViewById(R.id.monthValue);
+            horoscopeSign = itemView.findViewById(R.id.horoscopeSign);
+            cardView = itemView.findViewById(R.id.cardView);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int cardPosition = getAdapterPosition();
+            Bundle bundle = new Bundle();
+            bundle.putInt("ID", cardPosition);
+            Intent myIntent = new Intent(context.getApplicationContext(), Insight.class);
+            myIntent.putExtras(bundle);
+            context.startActivity(myIntent);
         }
     }
 }
