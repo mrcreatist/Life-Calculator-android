@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     int currentYear, currentMonth, currentDay;
     int birthYear, birthMonth, birthDay;
+    int backButtonCount;
 
     FloatingActionButton floatingActionButton;
     private RecyclerView recyclerView;
@@ -92,6 +94,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (backButtonCount >= 1) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            backButtonCount = 0;
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Press the back button once again to exit.", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
 
     }
 

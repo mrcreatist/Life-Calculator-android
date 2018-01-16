@@ -25,4 +25,8 @@ public class Welcome extends AppCompatActivity {
             }
         });
     }
+
+    public void onBackPressed() {
+        this.finish();
+    }
 }

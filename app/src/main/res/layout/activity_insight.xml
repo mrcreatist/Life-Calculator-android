@@ -227,9 +227,9 @@
 
                         <TextView
                             android:id="@+id/dataMinutes"
-                            android:layout_width="wrap_content"
+                            android:layout_width="225dp"
                             android:layout_height="35dp"
-                            android:layout_marginStart="36dp"
+                            android:layout_marginStart="32dp"
                             android:text="@string/minutesCompleted"
                             android:textColor="@color/Grey"
                             android:textSize="25dp"

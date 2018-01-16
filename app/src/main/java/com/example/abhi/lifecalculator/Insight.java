@@ -43,11 +43,6 @@ public class Insight extends AppCompatActivity {
         int id = bundle.getInt("ID");
         id++;
 
-        //-----------------------------------
-        //------------------------------------
-
-
-        //--------------------------------------------------
         // reading from the DB
         String temp = readFromFile();
 
