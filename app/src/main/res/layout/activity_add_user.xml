@@ -53,6 +53,8 @@
         android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:text="Select Date"
+        android:textColor="@color/Blue"
+        android:textColorLink="@color/Blue"
         app:layout_constraintEnd_toEndOf="@+id/inputLayoutName"
         app:layout_constraintStart_toStartOf="@+id/inputLayoutName"
         app:layout_constraintTop_toBottomOf="@+id/inputLayoutName" />
@@ -65,5 +67,18 @@
         android:text="Add User"
         app:layout_constraintStart_toStartOf="@+id/selectDate"
         app:layout_constraintTop_toBottomOf="@+id/selectDate" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="96dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:elevation="10dp"
+        app:backgroundTint="@color/Blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_done_white_512dp_2x" />
 
 </android.support.constraint.ConstraintLayout>

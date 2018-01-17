@@ -22,14 +22,14 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
-        android:layout_width="56dp"
-        android:layout_height="54dp"
+        android:layout_width="96dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
-        android:elevation="5dp"
-        android:src="@android:drawable/ic_dialog_info"
-        app:backgroundTint="@color/colorAccent"
+        android:elevation="10dp"
+        android:src="@drawable/ic_action_name"
+        app:backgroundTint="@color/Blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:pressedTranslationZ="10dp" />

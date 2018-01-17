@@ -28,6 +28,7 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
     Button addUserButton, selectDateButton;
 
     int birthYear, birthMonth, birthDay;
+    int currentYear, currentMonth, currentDay;
     int id = 0, flag = 0;
 
     @Override
@@ -43,14 +44,12 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(View view) {
                 Calendar c = Calendar.getInstance();
-                birthYear = c.get(Calendar.YEAR);
-                birthMonth = c.get(Calendar.MONTH);
-                birthDay = c.get(Calendar.DAY_OF_MONTH);
+                currentYear = c.get(Calendar.YEAR);
+                currentMonth = c.get(Calendar.MONTH);
+                currentDay = c.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddUser.this, AddUser.this, birthYear, birthMonth, birthDay);
                 datePickerDialog.show();
-
-                selectDateButton.setText(birthDay + "/" + birthMonth + "/" + birthYear);
             }
         });
 
@@ -58,15 +57,34 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
             @Override
             public void onClick(View view) {
 
+                String sample[];
+                sample = name.getText().toString().split("-");
+
                 if (name.getText().toString().matches("")) {
+                    // empty username
                     Toast.makeText(AddUser.this, "Name field is empty", Toast.LENGTH_SHORT).show();
                 } else if (selectDateButton.getText().toString().matches("Select Date")) {
+                    // empty date
                     Toast.makeText(AddUser.this, "Date field is empty", Toast.LENGTH_SHORT).show();
+                } else if (currentYear < birthYear) {
+                    // invalid birth year
+                    Toast.makeText(AddUser.this, "Please select a valid year", Toast.LENGTH_SHORT).show();
+                } else if (currentMonth < birthMonth && birthYear == currentYear) {
+                    // invalid birth month
+                    Toast.makeText(AddUser.this, "Please select a valid month", Toast.LENGTH_SHORT).show();
+                } else if (currentDay < birthDay && currentMonth == birthMonth && currentYear == birthYear) {
+                    // invalid birth day
+                    Toast.makeText(AddUser.this, "Please select a valid date", Toast.LENGTH_SHORT).show();
+                } else if (sample.length > 0) {
+                    // hyphen in user name
+                    Toast.makeText(AddUser.this, "hyphen('-') in not allowed in event names", Toast.LENGTH_SHORT).show();
                 } else {
+                    // validated data, proceeding to to add event.
                     try {
                         writeToFile(getID() + "-");
                         writeToFile(name.getText().toString() + "-");
                         writeToFile(selectDateButton.getText().toString() + "-");
+                        Toast.makeText(AddUser.this, "Updated Database", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(AddUser.this, "addUser: Exception occurred", Toast.LENGTH_SHORT).show();
@@ -117,7 +135,6 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
         try {
             fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
             fileOutputStream.write(text.getBytes());
-            Toast.makeText(this, "text written to " + getFilesDir() + "/" + fileName, Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
