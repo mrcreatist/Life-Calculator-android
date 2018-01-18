@@ -3,6 +3,7 @@ package com.example.abhi.lifecalculator;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,8 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
     private static final String fileName = "UserDB.txt";
 
     TextView name;
-    Button addUserButton, selectDateButton;
+    Button selectDateButton;
+    FloatingActionButton addUserFAB;
 
     int birthYear, birthMonth, birthDay;
     int currentYear, currentMonth, currentDay;
@@ -37,8 +39,8 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
         setContentView(R.layout.activity_add_user);
 
         name = (EditText) findViewById(R.id.inputName);
-        addUserButton = (Button) findViewById(R.id.addUser);
         selectDateButton = (Button) findViewById(R.id.selectDate);
+        addUserFAB = findViewById(R.id.addUserFAB);
 
         selectDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,12 +50,12 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
                 currentMonth = c.get(Calendar.MONTH);
                 currentDay = c.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AddUser.this, AddUser.this, birthYear, birthMonth, birthDay);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddUser.this, AddUser.this, currentYear, currentMonth, currentDay);
                 datePickerDialog.show();
             }
         });
 
-        addUserButton.setOnClickListener(new View.OnClickListener() {
+        addUserFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -69,22 +71,24 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
                 } else if (currentYear < birthYear) {
                     // invalid birth year
                     Toast.makeText(AddUser.this, "Please select a valid year", Toast.LENGTH_SHORT).show();
-                } else if (currentMonth < birthMonth && birthYear == currentYear) {
+                } else if (currentMonth + 2 <= birthMonth && birthYear == currentYear) {
                     // invalid birth month
                     Toast.makeText(AddUser.this, "Please select a valid month", Toast.LENGTH_SHORT).show();
-                } else if (currentDay < birthDay && currentMonth == birthMonth && currentYear == birthYear) {
+                } else if (currentDay < birthDay && currentMonth + 1 == birthMonth && currentYear == birthYear) {
                     // invalid birth day
-                    Toast.makeText(AddUser.this, "Please select a valid date", Toast.LENGTH_SHORT).show();
-                } else if (sample.length > 0) {
+                    Toast.makeText(AddUser.this, "Please select a valid day", Toast.LENGTH_SHORT).show();
+                } else if (sample.length != 1) {
                     // hyphen in user name
                     Toast.makeText(AddUser.this, "hyphen('-') in not allowed in event names", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(AddUser.this, Integer.toString(sample.length), Toast.LENGTH_SHORT).show();
                 } else {
                     // validated data, proceeding to to add event.
                     try {
                         writeToFile(getID() + "-");
                         writeToFile(name.getText().toString() + "-");
                         writeToFile(selectDateButton.getText().toString() + "-");
-                        Toast.makeText(AddUser.this, "Updated Database", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddUser.this, "Entry Successful", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(AddUser.this, "addUser: Exception occurred", Toast.LENGTH_SHORT).show();

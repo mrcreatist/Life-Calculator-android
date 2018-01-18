@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     int backButtonCount;
 
     FloatingActionButton floatingActionButton;
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<CardLayout> cardLayoutList;

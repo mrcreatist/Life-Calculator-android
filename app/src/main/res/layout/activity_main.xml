@@ -22,8 +22,8 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
-        android:layout_width="96dp"
-        android:layout_height="48dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
@@ -42,6 +42,7 @@
         android:layout_marginTop="24dp"
         android:text="Life Calculator"
         android:textAllCaps="true"
+        android:textColorHint="@color/Blue"
         android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,6 +2,7 @@ package com.example.abhi.lifecalculator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +22,15 @@ public class Insight extends AppCompatActivity {
     TextView dataDays, dataMonths, dataWeek;
     TextView dataHour, dataMinutes, dataSeconds;
 
+    ImageView imageHoroscope;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insight);
 
         // Initializing the TextViews
+        imageHoroscope = (ImageView) findViewById(R.id.imageHoroscope);
         insightUserName = findViewById(R.id.insightUserName);
         insightHoroscopeSign = findViewById(R.id.insightHoroscopeSign);
         dataBirthDetails = findViewById(R.id.dataBirthDetails);
@@ -87,6 +91,7 @@ public class Insight extends AppCompatActivity {
         // display the final result
         insightUserName.setText(dataToWork[0].toString());
         insightHoroscopeSign.setText(calculateHoroscopeSign(birthMonth, birthDay));
+        imageHoroscope.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         dataBirthDetails.setText(dataDOB[0].toString() + "/" + dataDOB[1].toString() + "/" + dataDOB[2].toString());
         //dataBirthDay = findViewById(R.id.dataBirthDay);
@@ -141,74 +146,98 @@ public class Insight extends AppCompatActivity {
 
         if (birthMonth == 3) {
             if (birthDay >= 21) {
+                imageHoroscope.setImageResource(R.drawable.aries);
                 return "Aries";
             } else {
+                imageHoroscope.setImageResource(R.drawable.pisces);
                 return "Pisces";
             }
         } else if (birthMonth == 4) {
             if (birthDay >= 20) {
+                imageHoroscope.setImageResource(R.drawable.taurus);
                 return "Taurus";
             } else {
+                imageHoroscope.setImageResource(R.drawable.aries);
                 return "Aries";
             }
         } else if (birthMonth == 5) {
             if (birthDay >= 21) {
+                imageHoroscope.setImageResource(R.drawable.gemini);
                 return "Gemini";
             } else {
+                imageHoroscope.setImageResource(R.drawable.taurus);
                 return "Taurus";
             }
         } else if (birthMonth == 6) {
             if (birthDay >= 21) {
+                imageHoroscope.setImageResource(R.drawable.cancer);
                 return "Cancer";
             } else {
+                imageHoroscope.setImageResource(R.drawable.gemini);
                 return "Gemini";
             }
         } else if (birthMonth == 7) {
             if (birthDay >= 23) {
+                imageHoroscope.setImageResource(R.drawable.leo);
                 return "Leo";
             } else {
+                imageHoroscope.setImageResource(R.drawable.cancer);
                 return "Cancer";
             }
         } else if (birthMonth == 8) {
             if (birthDay >= 23) {
+                imageHoroscope.setImageResource(R.drawable.virgo);
                 return "Virgo";
             } else {
+                imageHoroscope.setImageResource(R.drawable.leo);
                 return "Leo";
             }
         } else if (birthMonth == 9) {
             if (birthDay >= 23) {
+                imageHoroscope.setImageResource(R.drawable.libra);
                 return "Libra";
             } else {
+                imageHoroscope.setImageResource(R.drawable.virgo);
                 return "Virgo";
             }
         } else if (birthMonth == 10) {
             if (birthDay >= 23) {
+                imageHoroscope.setImageResource(R.drawable.scorpio);
                 return "Scorpio";
             } else {
+                imageHoroscope.setImageResource(R.drawable.libra);
                 return "Libra";
             }
         } else if (birthMonth == 11) {
             if (birthDay >= 22) {
+                imageHoroscope.setImageResource(R.drawable.sagittarius);
                 return "Sagittarius";
             } else {
+                imageHoroscope.setImageResource(R.drawable.scorpio);
                 return "Scorpio";
             }
         } else if (birthMonth == 12) {
             if (birthDay >= 22) {
+                imageHoroscope.setImageResource(R.drawable.capricorn);
                 return "Capricorn";
             } else {
+                imageHoroscope.setImageResource(R.drawable.sagittarius);
                 return "Sagittarius";
             }
         } else if (birthMonth == 1) {
             if (birthDay >= 20) {
+                imageHoroscope.setImageResource(R.drawable.aquarius);
                 return "Aquarius";
             } else {
+                imageHoroscope.setImageResource(R.drawable.capricorn);
                 return "Capricorn";
             }
         } else if (birthMonth == 2) {
             if (birthDay >= 19) {
+                imageHoroscope.setImageResource(R.drawable.pisces);
                 return "Pisces";
             } else {
+                imageHoroscope.setImageResource(R.drawable.aquarius);
                 return "Aquarius";
             }
         } else {

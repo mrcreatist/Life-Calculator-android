@@ -16,7 +16,8 @@
 
         <activity
             android:name=".AddUser"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".Welcome"
@@ -28,9 +29,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".About" />
+        <activity
+            android:name=".About"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".Insight"></activity>
+        <activity
+            android:name=".Insight"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 
