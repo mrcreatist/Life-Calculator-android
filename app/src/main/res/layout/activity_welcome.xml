@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.example.abhi.lifecalculator.Welcome">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/welcome_user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/Blue" />
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="144dp"
@@ -14,7 +26,7 @@
         android:layout_marginTop="96dp"
         android:text="Welcome to"
         android:textAllCaps="true"
-        android:textColor="@color/Black"
+        android:textColor="@color/White"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,9 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="life \ncalculator"
+        android:text="Life \nCalculator"
         android:textAllCaps="true"
-        android:textColor="@color/Black"
+        android:textColor="@color/White"
         android:textSize="50dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -44,6 +56,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Let's count"
+        android:textColor="@color/White"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,11 +67,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Baked by Mr.Creatist"
+        android:text="App by Mr.Creatist"
         android:textAllCaps="true"
+        android:textColor="@color/White"
         android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

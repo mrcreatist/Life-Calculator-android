@@ -4,4 +4,5 @@
     <dimen name="horoscopeSign">12dp</dimen>
     <dimen name="dataValue">30dp</dimen>
     <dimen name="dataSubText">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

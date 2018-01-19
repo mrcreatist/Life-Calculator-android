@@ -12,5 +12,6 @@
     <string name="daysCompleted">Days</string>
     <string name="weeksCompleted">Weeks</string>
     <string name="monthsCompleted">Months</string>
+    <string name="title_activity_insight1">insight1</string>
 
 </resources>

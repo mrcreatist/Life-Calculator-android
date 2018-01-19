@@ -33,14 +33,14 @@ public class Insight extends AppCompatActivity {
         imageHoroscope = (ImageView) findViewById(R.id.imageHoroscope);
         insightUserName = findViewById(R.id.insightUserName);
         insightHoroscopeSign = findViewById(R.id.insightHoroscopeSign);
-        dataBirthDetails = findViewById(R.id.dataBirthDetails);
-        dataBirthDay = findViewById(R.id.dataBirthDay);
-        dataDays = findViewById(R.id.dataDays);
-        dataMonths = findViewById(R.id.dataMonths);
-        dataWeek = findViewById(R.id.dataWeek);
-        dataHour = findViewById(R.id.dataHour);
-        dataMinutes = findViewById(R.id.dataMinutes);
-        dataSeconds = findViewById(R.id.dataSeconds);
+        dataBirthDetails = findViewById(R.id.dateOfBirthInsight);
+        dataBirthDay = findViewById(R.id.dayOfTheWeekInsight);
+        dataDays = findViewById(R.id.daysCompletedInsight);
+        dataMonths = findViewById(R.id.monthsCompletedInsight);
+        dataWeek = findViewById(R.id.weeksCompletedInsight);
+        dataHour = findViewById(R.id.hoursCompletedInsight);
+        dataMinutes = findViewById(R.id.minutesCompletedInsight);
+        dataSeconds = findViewById(R.id.secondsCompletedInsight);
 
         // need a value from ManActivity in a bundle.
         Bundle bundle = getIntent().getExtras();
@@ -101,6 +101,8 @@ public class Insight extends AppCompatActivity {
         dataHour.setText(Integer.toString(receivingArray[1] * 7 * 24));
         dataMinutes.setText(Integer.toString(receivingArray[1] * 7 * 24 * 60));
         dataSeconds.setText(Integer.toString(receivingArray[1] * 7 * 24 * 60 * 60));
+
+
     }
 
     @Override

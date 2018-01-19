@@ -6,413 +6,599 @@
     android:layout_height="match_parent"
     tools:context="com.example.abhi.lifecalculator.Insight">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/bannerLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="253dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintDimensionRatio="w,2:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageHoroscope"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@color/Blue" />
-
-        <TextView
-            android:id="@+id/insightUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="TextView"
-            android:textColor="@color/White"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/insightHoroscopeSign"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:textAllCaps="true"
-            android:textColor="@color/White"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/insightUserName"
-            app:layout_constraintStart_toStartOf="@+id/insightUserName"
-            app:layout_constraintTop_toBottomOf="@+id/insightUserName" />
-
-
-    </android.support.constraint.ConstraintLayout>
-
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.888"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bannerLayout">
-
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/bannerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_weight="2"
+            android:background="@color/colorAccent"
+            android:elevation="20dp"
+            app:layout_constraintDimensionRatio="w,2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageHoroscope"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@color/Blue" />
+
+            <TextView
+                android:id="@+id/insightUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                android:textColor="@color/White"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/insightHoroscopeSign"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:textAllCaps="true"
+                android:textColor="@color/White"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/insightUserName"
+                app:layout_constraintStart_toStartOf="@+id/insightUserName"
+                app:layout_constraintTop_toBottomOf="@+id/insightUserName" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bannerLayout">
 
             <LinearLayout
-                android:id="@+id/container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/headBar"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/Blue">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/White"
+                    android:elevation="20dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/headingBirthDetails"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_weight="1"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="@string/birthDetails"
+                        android:layout_marginTop="6dp"
+                        android:text="Birth Details"
+                        android:textAlignment="center"
                         android:textAllCaps="true"
-                        android:textColor="@color/White"
-                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="10dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="6dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp">
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="25dp"
+                                    android:paddingLeft="40dp"
+                                    android:paddingRight="40dp"
+                                    android:paddingTop="25dp">
+
+                                    <TextView
+                                        android:id="@+id/dateOfBirthInsight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="DD/MM/YYYY"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Date of Birth"
+                                        android:textAllCaps="true"
+                                        android:textSize="10dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintLeft_toLeftOf="@id/dateOfBirthInsight"
+                                        app:layout_constraintRight_toRightOf="@id/dateOfBirthInsight"
+                                        app:layout_constraintTop_toBottomOf="@id/dateOfBirthInsight" />
+
+                                </android.support.constraint.ConstraintLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="25dp"
+                                    android:paddingLeft="40dp"
+                                    android:paddingRight="40dp"
+                                    android:paddingTop="25dp">
+
+                                    <TextView
+                                        android:id="@+id/dayOfTheWeekInsight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Day Of The Week"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Day of the Week"
+                                        android:textAllCaps="true"
+                                        android:textSize="10dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/dayOfTheWeekInsight" />
+
+                                </android.support.constraint.ConstraintLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/White"
+                    android:elevation="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Time Details"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textStyle="bold" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="10dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="6dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp">
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="25dp"
+                                    android:paddingLeft="40dp"
+                                    android:paddingRight="40dp"
+                                    android:paddingTop="25dp">
+
+                                    <TextView
+                                        android:id="@+id/hoursCompletedInsight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Hours Completed"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Minutes Completed"
+                                        android:textAllCaps="true"
+                                        android:textSize="10dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="@id/hoursCompletedInsight"
+                                        app:layout_constraintRight_toRightOf="@id/hoursCompletedInsight"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/hoursCompletedInsight" />
+
+                                </android.support.constraint.ConstraintLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="25dp"
+                                    android:paddingLeft="40dp"
+                                    android:paddingRight="40dp"
+                                    android:paddingTop="25dp">
+
+                                    <TextView
+                                        android:id="@+id/minutesCompletedInsight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Minutes Completed"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Minutes Completed"
+                                        android:textAllCaps="true"
+                                        android:textSize="10dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="@id/minutesCompletedInsight"
+                                        app:layout_constraintRight_toRightOf="@id/minutesCompletedInsight"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/minutesCompletedInsight" />
+
+                                </android.support.constraint.ConstraintLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="25dp"
+                                    android:paddingLeft="40dp"
+                                    android:paddingRight="40dp"
+                                    android:paddingTop="25dp">
+
+                                    <TextView
+                                        android:id="@+id/secondsCompletedInsight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Seconds Completed"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Seconds Completed"
+                                        android:textAllCaps="true"
+                                        android:textSize="10dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/secondsCompletedInsight" />
+
+                                </android.support.constraint.ConstraintLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/White"
+                    android:elevation="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Day Details"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textStyle="bold" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="10dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="6dp"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp">
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="25dp"
+                                    android:paddingLeft="40dp"
+                                    android:paddingRight="40dp"
+                                    android:paddingTop="25dp">
+
+                                    <TextView
+                                        android:id="@+id/daysCompletedInsight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Days Completed"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Days Completed"
+                                        android:textAllCaps="true"
+                                        android:textSize="10dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/daysCompletedInsight" />
+
+                                </android.support.constraint.ConstraintLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="25dp"
+                                    android:paddingLeft="40dp"
+                                    android:paddingRight="40dp"
+                                    android:paddingTop="25dp">
+
+                                    <TextView
+                                        android:id="@+id/weeksCompletedInsight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Weeks Completed"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Weeks Completed"
+                                        android:textAllCaps="true"
+                                        android:textSize="10dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/weeksCompletedInsight" />
+
+                                </android.support.constraint.ConstraintLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="25dp"
+                                    android:paddingLeft="40dp"
+                                    android:paddingRight="40dp"
+                                    android:paddingTop="25dp">
+
+                                    <TextView
+                                        android:id="@+id/monthsCompletedInsight"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Months Completed"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="8dp"
+                                        android:layout_marginStart="8dp"
+                                        android:text="Months Completed"
+                                        android:textAllCaps="true"
+                                        android:textSize="10dp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@id/monthsCompletedInsight" />
+
+                                </android.support.constraint.ConstraintLayout>
+
+                            </android.support.v7.widget.CardView>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="cursive"
+                        android:text="Finally that concludes your age"
+                        android:textAlignment="center"
+                        android:textSize="22dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ageInsight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="22 years"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textSize="40dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="4dp">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/contentBirthDetails"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/dataBirthDetails"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/birthDate"
-                            android:textColor="@color/Grey"
-                            android:textSize="25dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textBirthDetails"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/birthDate"
-                            android:textAllCaps="true"
-                            android:textColor="@color/Grey"
-                            android:textSize="10dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/dataBirthDetails"
-                            app:layout_constraintTop_toBottomOf="@+id/dataBirthDetails" />
-
-                        <TextView
-                            android:id="@+id/dataBirthDay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
-                            android:text="@string/birthDay"
-                            android:textColor="@color/Grey"
-                            android:textSize="25dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/dataBirthDetails"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textBirthDay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/birthDay"
-                            android:textAllCaps="true"
-                            android:textColor="@color/Grey"
-                            android:textSize="10dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/dataBirthDay"
-                            app:layout_constraintTop_toBottomOf="@+id/dataBirthDay" />
-
-                    </android.support.constraint.ConstraintLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/headBar1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/Blue">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/headingTimeDetails"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_weight="1"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="@string/timeDetails"
-                        android:textAllCaps="true"
-                        android:textColor="@color/White"
-                        android:textSize="15dp"
+                        android:layout_marginTop="20dp"
+                        android:text="NOTE: These values are applicable till today's 12 midnight."
+                        android:textAlignment="center"
+                        android:textSize="10dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="sans-serif"
+                        android:text="A small gift for you from MrCreatist"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textSize="12dp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="4dp">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/contentBirthDetails"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/dataHour"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/hoursCompleted"
-                            android:textColor="@color/Grey"
-                            android:textSize="25dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textHour"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/hoursCompleted"
-                            android:textAllCaps="true"
-                            android:textColor="@color/Grey"
-                            android:textSize="10dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/dataHour"
-                            app:layout_constraintTop_toBottomOf="@+id/dataHour" />
-
-                        <TextView
-                            android:id="@+id/dataMinutes"
-                            android:layout_width="225dp"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="32dp"
-                            android:text="@string/minutesCompleted"
-                            android:textColor="@color/Grey"
-                            android:textSize="25dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@+id/dataHour"
-                            app:layout_constraintTop_toTopOf="@+id/dataHour" />
-
-                        <TextView
-                            android:id="@+id/textMinutes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/minutesCompleted"
-                            android:textAllCaps="true"
-                            android:textColor="@color/Grey"
-                            android:textSize="10dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/dataMinutes"
-                            app:layout_constraintTop_toBottomOf="@+id/dataMinutes" />
-
-                        <TextView
-                            android:id="@+id/dataSeconds"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/secondsCompleted"
-                            android:textColor="@color/Grey"
-                            android:textSize="25dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/dataHour"
-                            app:layout_constraintTop_toBottomOf="@+id/textHour" />
-
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/secondsCompleted"
-                            android:textAllCaps="true"
-                            android:textColor="@color/Grey"
-                            android:textSize="10dp"
-                            android:textStyle="bold"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/dataSeconds"
-                            app:layout_constraintTop_toBottomOf="@+id/dataSeconds" />
-
-                    </android.support.constraint.ConstraintLayout>
-
-                </LinearLayout>
-
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        </ScrollView>
 
-                <LinearLayout
-                    android:id="@+id/headBar2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/Blue">
-
-                    <TextView
-                        android:id="@+id/headingDayDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_weight="1"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:text="@string/dayDetails"
-                        android:textAllCaps="true"
-                        android:textColor="@color/White"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="184dp"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="4dp">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/contentDayDetails"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/dataDays"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/daysCompleted"
-                            android:textColor="@color/Grey"
-                            android:textSize="25dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textDays"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/daysCompleted"
-                            android:textAllCaps="true"
-                            android:textColor="@color/Grey"
-                            android:textSize="10dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/dataDays"
-                            app:layout_constraintTop_toBottomOf="@+id/dataDays" />
-
-                        <TextView
-                            android:id="@+id/dataMonths"
-                            android:layout_width="wrap_content"
-                            android:layout_height="35dp"
-                            android:layout_marginStart="32dp"
-                            android:text="@string/monthsCompleted"
-                            android:textColor="@color/Grey"
-                            android:textSize="25dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@+id/dataDays"
-                            app:layout_constraintTop_toTopOf="@+id/dataDays" />
-
-                        <TextView
-                            android:id="@+id/textMonths"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/monthsCompleted"
-                            android:textAllCaps="true"
-                            android:textColor="@color/Grey"
-                            android:textSize="10dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/dataMonths"
-                            app:layout_constraintTop_toBottomOf="@+id/dataMonths" />
-
-                        <TextView
-                            android:id="@+id/dataWeek"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
-                            android:text="@string/weeksCompleted"
-                            android:textColor="@color/Grey"
-                            android:textSize="25dp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toEndOf="@+id/dataMonths"
-                            app:layout_constraintTop_toTopOf="@+id/dataDays" />
-
-                        <TextView
-                            android:id="@+id/textWeek"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/weeksCompleted"
-                            android:textAllCaps="true"
-                            android:textColor="@color/Grey"
-                            android:textSize="10dp"
-                            android:textStyle="bold"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/dataWeek"
-                            app:layout_constraintTop_toBottomOf="@+id/dataWeek" />
-
-                    </android.support.constraint.ConstraintLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-    </ScrollView>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
