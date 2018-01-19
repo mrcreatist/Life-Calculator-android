@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -35,56 +36,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
         final CardLayout cardLayoutObject = cardLayoutList.get(position);
 
         holder.userName.setText(cardLayoutObject.getUserNameString());
         holder.dayValue.setText(cardLayoutObject.getDayValueString());
         holder.monthValue.setText(cardLayoutObject.getMonthValueString());
         holder.horoscopeSign.setText(cardLayoutObject.getHoroscopeSign());
-        //holder.imageHoroscope.setImageResource(R.drawable.aquarius);
-        /*
-        // Image for ImageView
-        switch (cardLayoutObject.getHoroscopeSign()){
-            case "Aries":
-                holder.imageHoroscope.setImageResource(R.drawable.aries);
-                break;
-            case "Pisces":
-                holder.imageHoroscope.setImageResource(R.drawable.pisces);
-                break;
-            case "Taurus":
-                holder.imageHoroscope.setImageResource(R.drawable.taurus);
-                break;
-            case "Gemini":
-                holder.imageHoroscope.setImageResource(R.drawable.gemini);
-                break;
-            case "Cancer":
-                holder.imageHoroscope.setImageResource(R.drawable.cancer);
-                break;
-            case "Leo":
-                holder.imageHoroscope.setImageResource(R.drawable.leo);
-                break;
-            case "Virgo":
-                holder.imageHoroscope.setImageResource(R.drawable.virgo);
-                break;
-            case "Libra":
-                holder.imageHoroscope.setImageResource(R.drawable.libra);
-                break;
-            case "Scorpio":
-                holder.imageHoroscope.setImageResource(R.drawable.aquarius);
-                break;
-            case "Sagittarius":
-                holder.imageHoroscope.setImageResource(R.drawable.aquarius);
-                break;
-            case "Capricorn":
-                holder.imageHoroscope.setImageResource(R.drawable.aquarius);
-                break;
-            case "Aquarius":
-                holder.imageHoroscope.setImageResource(R.drawable.aquarius);
-                break;
-            default:
-                break;
-        }*/
-
+        try {
+            holder.imageHoroscope.setImageResource(cardLayoutObject.getHoroscopeImage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(context, "Exception Occured", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -108,6 +72,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             monthValue = itemView.findViewById(R.id.monthValue);
             horoscopeSign = itemView.findViewById(R.id.horoscopeSign);
             imageHoroscope = itemView.findViewById(R.id.imageHoroscope);
+            imageHoroscope.setScaleType(ImageView.ScaleType.CENTER_CROP);
             cardView = itemView.findViewById(R.id.cardView);
         }
 

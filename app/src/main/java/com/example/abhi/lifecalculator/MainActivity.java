@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
                     "" + splitStringData[(i * 3) + 1],
                     "" + receivingArray[0],
                     "" + receivingArray[1],
-                    "" + calculateHoroscopeSign(birthMonth, birthDay)
+                    "" + calculateHoroscopeSign(birthMonth, birthDay),
+                    findHoroscopeImage(calculateHoroscopeSign(birthMonth, birthDay))
             );
 
             cardLayoutList.add(cardLayoutObject);
@@ -342,6 +343,37 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             return false;
+        }
+    }
+
+    int findHoroscopeImage(String horoscopeSign) {
+        switch (horoscopeSign) {
+            case "Aquarius":
+                return R.drawable.aquarius;
+            case "Aries":
+                return R.drawable.aries;
+            case "Cancer":
+                return R.drawable.cancer;
+            case "Capricorn":
+                return R.drawable.capricorn;
+            case "Gemini":
+                return R.drawable.gemini;
+            case "Leo":
+                return R.drawable.leo;
+            case "Libra":
+                return R.drawable.libra;
+            case "Pisces":
+                return R.drawable.pisces;
+            case "Sagittarius":
+                return R.drawable.sagittarius;
+            case "Scorpio":
+                return R.drawable.scorpio;
+            case "Taurus":
+                return R.drawable.taurus;
+            case "Virgo":
+                return R.drawable.virgo;
+            default:
+                return 0;
         }
     }
 }
