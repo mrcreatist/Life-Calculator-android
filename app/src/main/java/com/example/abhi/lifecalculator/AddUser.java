@@ -33,6 +33,8 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
     int currentYear, currentMonth, currentDay;
     int id = 0, flag = 0;
 
+    String buttonText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,8 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
         name = (EditText) findViewById(R.id.inputName);
         selectDateButton = (Button) findViewById(R.id.selectDate);
         addUserFAB = findViewById(R.id.addUserFAB);
+
+        buttonText = selectDateButton.getText().toString();
 
         selectDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +69,7 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
                 if (name.getText().toString().matches("")) {
                     // empty username
                     Toast.makeText(AddUser.this, "Name field is empty", Toast.LENGTH_SHORT).show();
-                } else if (selectDateButton.getText().toString().matches("Select Date")) {
+                } else if (selectDateButton.getText().toString().matches(buttonText.toString())) {
                     // empty date
                     Toast.makeText(AddUser.this, "Date field is empty", Toast.LENGTH_SHORT).show();
                 } else if (currentYear < birthYear) {

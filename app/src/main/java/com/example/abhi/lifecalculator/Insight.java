@@ -2,6 +2,8 @@ package com.example.abhi.lifecalculator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Calendar;
@@ -21,6 +24,9 @@ public class Insight extends AppCompatActivity {
     TextView dataBirthDetails, dataBirthDay;
     TextView dataDays, dataMonths, dataWeek;
     TextView dataHour, dataMinutes, dataSeconds;
+    TextView age;
+
+    Button deleteButton;
 
     ImageView imageHoroscope;
 
@@ -41,11 +47,15 @@ public class Insight extends AppCompatActivity {
         dataHour = findViewById(R.id.hoursCompletedInsight);
         dataMinutes = findViewById(R.id.minutesCompletedInsight);
         dataSeconds = findViewById(R.id.secondsCompletedInsight);
+        age = findViewById(R.id.ageInsight);
+        deleteButton = findViewById(R.id.deleteButton);
 
         // need a value from ManActivity in a bundle.
+        //int id = getIdFromBundle();
+
         Bundle bundle = getIntent().getExtras();
         int id = bundle.getInt("ID");
-        id++;
+        ++id;
 
         // reading from the DB
         String temp = readFromFile();
@@ -84,7 +94,6 @@ public class Insight extends AppCompatActivity {
         currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         currentMonth++;
 
-
         //calculating work
         int receivingArray[] = countDays(birthDay, birthMonth, birthYear, currentDay, currentMonth, currentYear);
 
@@ -93,16 +102,59 @@ public class Insight extends AppCompatActivity {
         insightHoroscopeSign.setText(calculateHoroscopeSign(birthMonth, birthDay));
         imageHoroscope.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        dataBirthDetails.setText(dataDOB[0].toString() + "/" + dataDOB[1].toString() + "/" + dataDOB[2].toString());
-        //dataBirthDay = findViewById(R.id.dataBirthDay);
+        dataBirthDetails.setText(monthOfTheYearInString(birthMonth) + " " + dataDOB[0].toString() + ", " + dataDOB[2].toString());
+        dataBirthDay.setText(dayOfTheWeek(birthDay, birthMonth, birthYear));
         dataDays.setText(Integer.toString(receivingArray[0]));
         dataMonths.setText(Integer.toString(receivingArray[1]));
         dataWeek.setText(Integer.toString(receivingArray[1] * 4));
         dataHour.setText(Integer.toString(receivingArray[1] * 7 * 24));
         dataMinutes.setText(Integer.toString(receivingArray[1] * 7 * 24 * 60));
         dataSeconds.setText(Integer.toString(receivingArray[1] * 7 * 24 * 60 * 60));
+        age.setText(Integer.toString(calculateAge(birthDay, birthMonth, birthYear, currentDay, currentMonth, currentYear)) + " YEARS");
 
 
+        // DELETE BUTTON
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //int id = getIdFromBundle();
+/*                String temp = readFromFile();
+
+                // finding id and getting data
+                String data[] = temp.split("-");
+                String dataToWork[] = new String[2];
+
+                String finalDataToEdit = "";
+                String previousId = data[0];
+
+                try {
+                    int idCopy = id;                                                // ID Copy
+                    String idCopyString = Integer.toString(idCopy);                 // ID Copy String
+                    for (int i = 0; i < data.length - 1; i += 3) {
+                        String currentIdInMemory = data[i];                         // got current ID
+                        if (idCopyString.compareTo(currentIdInMemory) == 0) {       // comparing both String IDs
+                            // found the ID
+                            // No need to do anything.
+                        } else {
+                            // check the previous ID
+                            if(data[i] == (previousId + 1)) {
+
+                            } else {
+                                finalDataToEdit += data[i] + "-" + data[i+1] + "-" + data[i+2];
+                            }
+                            previousId = data[i];
+                        }
+                    }
+                    finalDataToEdit += "-";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Exception", Toast.LENGTH_SHORT).show();
+                }
+                Toast.makeText(Insight.this, finalDataToEdit.toString(), Toast.LENGTH_SHORT).show();*/
+            }
+        });
     }
 
     @Override
@@ -113,6 +165,28 @@ public class Insight extends AppCompatActivity {
 
 
     // SUPPORTING FUNCTIONS
+
+    void writeToFile(String data) {
+        String text = readFromFile() + data;
+        FileOutputStream fileOutputStream = null;
+
+        try {
+            fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
+            fileOutputStream.write(text.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     String readFromFile() {
         String temp = "";
@@ -374,4 +448,69 @@ public class Insight extends AppCompatActivity {
             return false;
         }
     }
+
+    public String dayOfTheWeek(int birthday, int birthMonth, int birthYear) {
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, birthYear);
+        c.set(Calendar.MONTH, --birthMonth);
+        c.set(Calendar.DATE, birthday);
+        int day = c.get(Calendar.DAY_OF_WEEK);
+
+        switch (day) {
+            case Calendar.MONDAY:
+                return "Monday";
+            case Calendar.TUESDAY:
+                return "Tuesday";
+            case Calendar.WEDNESDAY:
+                return "Wednesday";
+            case Calendar.THURSDAY:
+                return "Thursday";
+            case Calendar.FRIDAY:
+                return "Friday";
+            case Calendar.SATURDAY:
+                return "Saturday";
+            case Calendar.SUNDAY:
+                return "Sunday";
+            default:
+                return "Not Found";
+        }
+    }
+
+    public String monthOfTheYearInString(int month) {
+        switch (month) {
+            case 1:
+                return "January";
+            case 2:
+                return "February";
+            case 3:
+                return "March";
+            case 4:
+                return "April";
+            case 5:
+                return "May";
+            case 6:
+                return "June";
+            case 7:
+                return "July";
+            case 8:
+                return "August";
+            case 9:
+                return "September";
+            case 10:
+                return "October";
+            case 11:
+                return "November";
+            case 12:
+                return "December";
+            default:
+                return "Month not found";
+        }
+    }
+
+/*    public int getIdFromBundle(){
+        Bundle bundle = getIntent().getExtras();
+        int id = bundle.getInt("ID");
+        return ++id;
+    }*/
 }

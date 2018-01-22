@@ -347,6 +347,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     int findHoroscopeImage(String horoscopeSign) {
+
+        //return R.drawable.sagittarius;
+
         switch (horoscopeSign) {
             case "Aquarius":
                 return R.drawable.aquarius;

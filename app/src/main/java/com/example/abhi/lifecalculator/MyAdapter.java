@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -43,12 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.dayValue.setText(cardLayoutObject.getDayValueString());
         holder.monthValue.setText(cardLayoutObject.getMonthValueString());
         holder.horoscopeSign.setText(cardLayoutObject.getHoroscopeSign());
-        try {
-            holder.imageHoroscope.setImageResource(cardLayoutObject.getHoroscopeImage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(context, "Exception Occured", Toast.LENGTH_SHORT).show();
-        }
+        holder.imageHoroscope.setImageResource(cardLayoutObject.getHoroscopeImage());
     }
 
     @Override

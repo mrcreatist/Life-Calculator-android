@@ -101,25 +101,26 @@
                     <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:elevation="10dp"
                         android:scrollbars="none">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingBottom="6dp"
+                            android:paddingBottom="0dp"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp">
 
                             <android.support.v7.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp">
+                                android:layout_margin="10dp"
+                                app:cardElevation="6dp">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:background="@color/Blue"
                                     android:paddingBottom="25dp"
                                     android:paddingLeft="40dp"
                                     android:paddingRight="40dp"
@@ -132,6 +133,7 @@
                                         android:layout_marginEnd="8dp"
                                         android:layout_marginStart="8dp"
                                         android:text="DD/MM/YYYY"
+                                        android:textColor="@color/White"
                                         android:textSize="22dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -143,6 +145,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="Date of Birth"
                                         android:textAllCaps="true"
+                                        android:textColor="@color/White"
                                         android:textSize="10dp"
                                         android:textStyle="bold"
                                         app:layout_constraintLeft_toLeftOf="@id/dateOfBirthInsight"
@@ -156,11 +159,13 @@
                             <android.support.v7.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp">
+                                android:layout_margin="10dp"
+                                app:cardElevation="6dp">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:background="@color/Blue"
                                     android:paddingBottom="25dp"
                                     android:paddingLeft="40dp"
                                     android:paddingRight="40dp"
@@ -173,6 +178,7 @@
                                         android:layout_marginEnd="8dp"
                                         android:layout_marginStart="8dp"
                                         android:text="Day Of The Week"
+                                        android:textColor="@color/White"
                                         android:textSize="22dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -186,6 +192,7 @@
                                         android:layout_marginStart="8dp"
                                         android:text="Day of the Week"
                                         android:textAllCaps="true"
+                                        android:textColor="@color/White"
                                         android:textSize="10dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -222,25 +229,26 @@
                     <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:elevation="10dp"
                         android:scrollbars="none">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingBottom="6dp"
+                            android:paddingBottom="0dp"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp">
 
                             <android.support.v7.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp">
+                                android:layout_margin="10dp"
+                                app:cardElevation="6dp">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:background="@color/Blue"
                                     android:paddingBottom="25dp"
                                     android:paddingLeft="40dp"
                                     android:paddingRight="40dp"
@@ -253,6 +261,7 @@
                                         android:layout_marginEnd="8dp"
                                         android:layout_marginStart="8dp"
                                         android:text="Hours Completed"
+                                        android:textColor="@color/White"
                                         android:textSize="22dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -264,8 +273,9 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="8dp"
                                         android:layout_marginStart="8dp"
-                                        android:text="Minutes Completed"
+                                        android:text="Hours Completed"
                                         android:textAllCaps="true"
+                                        android:textColor="@color/White"
                                         android:textSize="10dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -281,11 +291,13 @@
                             <android.support.v7.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp">
+                                android:layout_margin="10dp"
+                                app:cardElevation="6dp">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:background="@color/Blue"
                                     android:paddingBottom="25dp"
                                     android:paddingLeft="40dp"
                                     android:paddingRight="40dp"
@@ -298,6 +310,7 @@
                                         android:layout_marginEnd="8dp"
                                         android:layout_marginStart="8dp"
                                         android:text="Minutes Completed"
+                                        android:textColor="@color/White"
                                         android:textSize="22dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -311,6 +324,7 @@
                                         android:layout_marginStart="8dp"
                                         android:text="Minutes Completed"
                                         android:textAllCaps="true"
+                                        android:textColor="@color/White"
                                         android:textSize="10dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -326,11 +340,13 @@
                             <android.support.v7.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp">
+                                android:layout_margin="10dp"
+                                app:cardElevation="6dp">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:background="@color/Blue"
                                     android:paddingBottom="25dp"
                                     android:paddingLeft="40dp"
                                     android:paddingRight="40dp"
@@ -343,6 +359,7 @@
                                         android:layout_marginEnd="8dp"
                                         android:layout_marginStart="8dp"
                                         android:text="Seconds Completed"
+                                        android:textColor="@color/White"
                                         android:textSize="22dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -356,6 +373,7 @@
                                         android:layout_marginStart="8dp"
                                         android:text="Seconds Completed"
                                         android:textAllCaps="true"
+                                        android:textColor="@color/White"
                                         android:textSize="10dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -392,25 +410,26 @@
                     <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:elevation="10dp"
                         android:scrollbars="none">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingBottom="6dp"
+                            android:paddingBottom="0dp"
                             android:paddingLeft="6dp"
                             android:paddingRight="6dp">
 
                             <android.support.v7.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp">
+                                android:layout_margin="10dp"
+                                app:cardElevation="6dp">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:background="@color/Blue"
                                     android:paddingBottom="25dp"
                                     android:paddingLeft="40dp"
                                     android:paddingRight="40dp"
@@ -423,6 +442,7 @@
                                         android:layout_marginEnd="8dp"
                                         android:layout_marginStart="8dp"
                                         android:text="Days Completed"
+                                        android:textColor="@color/White"
                                         android:textSize="22dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -436,6 +456,7 @@
                                         android:layout_marginStart="8dp"
                                         android:text="Days Completed"
                                         android:textAllCaps="true"
+                                        android:textColor="@color/White"
                                         android:textSize="10dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -449,11 +470,13 @@
                             <android.support.v7.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp">
+                                android:layout_margin="10dp"
+                                app:cardElevation="6dp">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:background="@color/Blue"
                                     android:paddingBottom="25dp"
                                     android:paddingLeft="40dp"
                                     android:paddingRight="40dp"
@@ -466,6 +489,7 @@
                                         android:layout_marginEnd="8dp"
                                         android:layout_marginStart="8dp"
                                         android:text="Weeks Completed"
+                                        android:textColor="@color/White"
                                         android:textSize="22dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -479,6 +503,7 @@
                                         android:layout_marginStart="8dp"
                                         android:text="Weeks Completed"
                                         android:textAllCaps="true"
+                                        android:textColor="@color/White"
                                         android:textSize="10dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -492,11 +517,13 @@
                             <android.support.v7.widget.CardView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp">
+                                android:layout_margin="10dp"
+                                app:cardElevation="6dp">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:background="@color/Blue"
                                     android:paddingBottom="25dp"
                                     android:paddingLeft="40dp"
                                     android:paddingRight="40dp"
@@ -509,6 +536,7 @@
                                         android:layout_marginEnd="8dp"
                                         android:layout_marginStart="8dp"
                                         android:text="Months Completed"
+                                        android:textColor="@color/White"
                                         android:textSize="22dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -522,6 +550,7 @@
                                         android:layout_marginStart="8dp"
                                         android:text="Months Completed"
                                         android:textAllCaps="true"
+                                        android:textColor="@color/White"
                                         android:textSize="10dp"
                                         android:textStyle="bold"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -548,7 +577,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="cursive"
-                        android:text="Finally that concludes your age"
+                        android:text="It concludes the age"
                         android:textAlignment="center"
                         android:textSize="22dp"
                         android:textStyle="bold" />
@@ -581,11 +610,23 @@
                         android:textSize="10dp"
                         android:textStyle="bold" />
 
+
+                    <Button
+                        android:id="@+id/deleteButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:background="@color/Red"
+                        android:text="Delete this Entry"
+                        android:textColor="@color/White"
+                        android:textStyle="bold"
+                        android:translationZ="5dp" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="0dp"
                         android:fontFamily="sans-serif"
                         android:text="A small gift for you from MrCreatist"
                         android:textAlignment="center"

@@ -5,6 +5,7 @@
         <!-- Customize your theme here.
     <item name="android:colorPrimaryDark">#000000</item> -->
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/Blue</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
     </style>
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">
