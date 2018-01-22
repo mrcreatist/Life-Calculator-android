@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     int backButtonCount;
 
     FloatingActionButton floatingActionButton;
+    TextView newHereText;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        newHereText = findViewById(R.id.newHereText);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -64,34 +68,46 @@ public class MainActivity extends AppCompatActivity {
         String splitStringData[] = temp.split("-");
         int splitStringLength = splitStringData.length;
 
-        int[] receivingArray;
+        if (splitStringLength > 1) {             // RecyclerView display check
 
-        cardLayoutList = new ArrayList<>();
+            newHereText.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
 
-        for (int i = 0; i < (splitStringLength / 3); i++) {
+            int[] receivingArray;
+            cardLayoutList = new ArrayList<>();
 
-            //Toast.makeText(this, "i:" + i, Toast.LENGTH_SHORT).show();
-            String splitDate[] = splitStringData[(i * 3) + 2].split("/");
+            for (int i = 0; i < (splitStringLength / 3); i++) {
 
-            birthDay = Integer.parseInt(splitDate[0]);
-            birthMonth = Integer.parseInt(splitDate[1]);
-            birthYear = Integer.parseInt(splitDate[2]);
+                //Toast.makeText(this, "i:" + i, Toast.LENGTH_SHORT).show();
+                String splitDate[] = splitStringData[(i * 3) + 2].split("/");
 
-            receivingArray = countDays(birthDay, birthMonth, birthYear, currentDay, currentMonth, currentYear);
+                birthDay = Integer.parseInt(splitDate[0]);
+                birthMonth = Integer.parseInt(splitDate[1]);
+                birthYear = Integer.parseInt(splitDate[2]);
 
-            CardLayout cardLayoutObject = new CardLayout(
-                    "" + splitStringData[(i * 3) + 1],
-                    "" + receivingArray[0],
-                    "" + receivingArray[1],
-                    "" + calculateHoroscopeSign(birthMonth, birthDay),
-                    findHoroscopeImage(calculateHoroscopeSign(birthMonth, birthDay))
-            );
+                receivingArray = countDays(birthDay, birthMonth, birthYear, currentDay, currentMonth, currentYear);
 
-            cardLayoutList.add(cardLayoutObject);
+                CardLayout cardLayoutObject = new CardLayout(
+                        "" + splitStringData[(i * 3) + 1],
+                        "" + receivingArray[0],
+                        "" + receivingArray[1],
+                        "" + calculateHoroscopeSign(birthMonth, birthDay),
+                        findHoroscopeImage(calculateHoroscopeSign(birthMonth, birthDay))
+                );
 
-            adapter = new MyAdapter(cardLayoutList, this);
-            recyclerView.setAdapter(adapter);
+                cardLayoutList.add(cardLayoutObject);
+
+                adapter = new MyAdapter(cardLayoutList, this);
+                recyclerView.setAdapter(adapter);
+            }
+
+        } else {                                   // newHereText display
+
+            recyclerView.setVisibility(View.INVISIBLE);
+            newHereText.setVisibility(View.VISIBLE);
         }
+
+
     }
 
     @Override
@@ -249,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
             }
             //System.out.println();
         }
+        totalMonths--;
         valueReturn[0] = totalDays;
         valueReturn[1] = totalMonths;
         return valueReturn;

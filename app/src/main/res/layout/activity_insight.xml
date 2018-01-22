@@ -617,7 +617,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
                         android:background="@color/Red"
-                        android:text="Delete this Entry"
+                        android:text="Delete this Life Record"
                         android:textColor="@color/White"
                         android:textStyle="bold"
                         android:translationZ="5dp" />
@@ -627,10 +627,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:layout_marginTop="0dp"
-                        android:fontFamily="sans-serif"
-                        android:text="A small gift for you from MrCreatist"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="a small gift for you from Mr.Creatist"
                         android:textAlignment="center"
-                        android:textAllCaps="false"
+                        android:textAllCaps="true"
                         android:textSize="12dp"
                         android:textStyle="bold" />
 

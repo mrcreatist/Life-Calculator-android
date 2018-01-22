@@ -56,6 +56,7 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddUser.this, AddUser.this, currentYear, currentMonth, currentDay);
                 datePickerDialog.show();
+                Toast.makeText(AddUser.this, "Select the any year by taping on the current year from the top. The current year is " + currentYear, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -91,7 +92,7 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
                         writeToFile(getID() + "-");
                         writeToFile(name.getText().toString() + "-");
                         writeToFile(selectDateButton.getText().toString() + "-");
-                        Toast.makeText(AddUser.this, "Entry Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddUser.this, "Life record added", Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     } catch (Exception e) {
                         e.printStackTrace();

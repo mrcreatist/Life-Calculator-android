@@ -1,5 +1,6 @@
 package com.example.abhi.lifecalculator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -51,11 +52,7 @@ public class Insight extends AppCompatActivity {
         deleteButton = findViewById(R.id.deleteButton);
 
         // need a value from ManActivity in a bundle.
-        //int id = getIdFromBundle();
-
-        Bundle bundle = getIntent().getExtras();
-        int id = bundle.getInt("ID");
-        ++id;
+        int id = getIdFromBundle();
 
         // reading from the DB
         String temp = readFromFile();
@@ -107,9 +104,9 @@ public class Insight extends AppCompatActivity {
         dataDays.setText(Integer.toString(receivingArray[0]));
         dataMonths.setText(Integer.toString(receivingArray[1]));
         dataWeek.setText(Integer.toString(receivingArray[1] * 4));
-        dataHour.setText(Integer.toString(receivingArray[1] * 7 * 24));
-        dataMinutes.setText(Integer.toString(receivingArray[1] * 7 * 24 * 60));
-        dataSeconds.setText(Integer.toString(receivingArray[1] * 7 * 24 * 60 * 60));
+        dataHour.setText(Integer.toString(receivingArray[0] * 24));
+        dataMinutes.setText(Integer.toString(receivingArray[0] * 24 * 60));
+        dataSeconds.setText(Integer.toString(receivingArray[0] * 24 * 60 * 60));
         age.setText(Integer.toString(calculateAge(birthDay, birthMonth, birthYear, currentDay, currentMonth, currentYear)) + " YEARS");
 
 
@@ -119,15 +116,15 @@ public class Insight extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //int id = getIdFromBundle();
-/*                String temp = readFromFile();
+                int id = getIdFromBundle();
+                String temp = readFromFile();
 
                 // finding id and getting data
                 String data[] = temp.split("-");
-                String dataToWork[] = new String[2];
 
                 String finalDataToEdit = "";
-                String previousId = data[0];
+
+                // Eliminating the current ID
 
                 try {
                     int idCopy = id;                                                // ID Copy
@@ -139,20 +136,31 @@ public class Insight extends AppCompatActivity {
                             // No need to do anything.
                         } else {
                             // check the previous ID
-                            if(data[i] == (previousId + 1)) {
-
-                            } else {
-                                finalDataToEdit += data[i] + "-" + data[i+1] + "-" + data[i+2];
-                            }
-                            previousId = data[i];
+                            finalDataToEdit += data[i] + "-" + data[i + 1] + "-" + data[i + 2] + "-";
                         }
                     }
-                    finalDataToEdit += "-";
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Exception", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(Insight.this, finalDataToEdit.toString(), Toast.LENGTH_SHORT).show();*/
+
+                // Editing IDs in finalDataToEdit.
+
+                String[] dataSeparate = finalDataToEdit.split("-");
+                String finalDataToWrite = "";
+                int designatedId = 1;
+
+                for (int i = 0; i < dataSeparate.length - 1; i += 3) {
+                    dataSeparate[i] = Integer.toString(designatedId);
+                    designatedId++;
+                    finalDataToWrite += dataSeparate[i] + "-" + dataSeparate[i + 1] + "-" + dataSeparate[i + 2] + "-";
+                }
+                writeToFile(finalDataToWrite);
+
+                Toast.makeText(Insight.this, "Life Record Deleted", Toast.LENGTH_SHORT).show();
+
+                Intent myIntent = new Intent(Insight.this, MainActivity.class);
+                startActivity(myIntent);
             }
         });
     }
@@ -167,7 +175,7 @@ public class Insight extends AppCompatActivity {
     // SUPPORTING FUNCTIONS
 
     void writeToFile(String data) {
-        String text = readFromFile() + data;
+        String text = data;
         FileOutputStream fileOutputStream = null;
 
         try {
@@ -352,6 +360,7 @@ public class Insight extends AppCompatActivity {
             }
             //System.out.println();
         }
+        totalMonths--;
         valueReturn[0] = totalDays;
         valueReturn[1] = totalMonths;
         return valueReturn;
@@ -508,9 +517,9 @@ public class Insight extends AppCompatActivity {
         }
     }
 
-/*    public int getIdFromBundle(){
+    public int getIdFromBundle() {
         Bundle bundle = getIntent().getExtras();
         int id = bundle.getInt("ID");
         return ++id;
-    }*/
+    }
 }
