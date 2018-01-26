@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.abhi.lifecalculator.Insight">
+    tools:context="com.creatist.abhi.lifecalculator.Insight">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,6 +81,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/adView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        ads:adSize="BANNER"
+                        ads:adUnitId="ca-app-pub-5857315550247343/2119818967" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -605,7 +620,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="NOTE: These values are applicable till today's 12 midnight."
+                        android:text="NOTE: These values are applicable till today midnight."
                         android:textAlignment="center"
                         android:textSize="10dp"
                         android:textStyle="bold" />

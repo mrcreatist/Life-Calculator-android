@@ -1,4 +1,4 @@
-package com.example.abhi.lifecalculator;
+package com.creatist.abhi.lifecalculator;
 
 /**
  * Created by Abhi on 12/6/2017.

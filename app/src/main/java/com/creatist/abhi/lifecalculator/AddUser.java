@@ -1,10 +1,12 @@
-package com.example.abhi.lifecalculator;
+package com.creatist.abhi.lifecalculator;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -56,7 +58,22 @@ public class AddUser extends AppCompatActivity implements DatePickerDialog.OnDat
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AddUser.this, AddUser.this, currentYear, currentMonth, currentDay);
                 datePickerDialog.show();
-                Toast.makeText(AddUser.this, "Select the any year by taping on the current year from the top. The current year is " + currentYear, Toast.LENGTH_LONG).show();
+                final Toast toast = Toast.makeText(AddUser.this, "Select the any year by taping on the current year from the top. The current year is " + currentYear, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+                //toast.show();
+
+                CountDownTimer toastCountDown = new CountDownTimer(5000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        toast.show();
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        toast.cancel();
+                    }
+                };
+                toastCountDown.start();
             }
         });
 

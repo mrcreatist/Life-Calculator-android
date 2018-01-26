@@ -1,13 +1,18 @@
-package com.example.abhi.lifecalculator;
+package com.creatist.abhi.lifecalculator;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -31,10 +36,14 @@ public class Insight extends AppCompatActivity {
 
     ImageView imageHoroscope;
 
+    Boolean showAds;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insight);
+
+        showAds = false;
 
         // Initializing the TextViews
         imageHoroscope = (ImageView) findViewById(R.id.imageHoroscope);
@@ -116,53 +125,83 @@ public class Insight extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                int id = getIdFromBundle();
-                String temp = readFromFile();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(Insight.this)
+                        .setMessage("Are you sure?")
 
-                // finding id and getting data
-                String data[] = temp.split("-");
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                String finalDataToEdit = "";
+                                // DELETING THE LIFE RECORD
 
-                // Eliminating the current ID
+                                int id = getIdFromBundle();
+                                String temp = readFromFile();
 
-                try {
-                    int idCopy = id;                                                // ID Copy
-                    String idCopyString = Integer.toString(idCopy);                 // ID Copy String
-                    for (int i = 0; i < data.length - 1; i += 3) {
-                        String currentIdInMemory = data[i];                         // got current ID
-                        if (idCopyString.compareTo(currentIdInMemory) == 0) {       // comparing both String IDs
-                            // found the ID
-                            // No need to do anything.
-                        } else {
-                            // check the previous ID
-                            finalDataToEdit += data[i] + "-" + data[i + 1] + "-" + data[i + 2] + "-";
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Exception", Toast.LENGTH_SHORT).show();
-                }
+                                // finding id and getting data
+                                String data[] = temp.split("-");
 
-                // Editing IDs in finalDataToEdit.
+                                String finalDataToEdit = "";
 
-                String[] dataSeparate = finalDataToEdit.split("-");
-                String finalDataToWrite = "";
-                int designatedId = 1;
+                                // Eliminating the current ID
 
-                for (int i = 0; i < dataSeparate.length - 1; i += 3) {
-                    dataSeparate[i] = Integer.toString(designatedId);
-                    designatedId++;
-                    finalDataToWrite += dataSeparate[i] + "-" + dataSeparate[i + 1] + "-" + dataSeparate[i + 2] + "-";
-                }
-                writeToFile(finalDataToWrite);
+                                try {
+                                    int idCopy = id;                                                // ID Copy
+                                    String idCopyString = Integer.toString(idCopy);                 // ID Copy String
+                                    for (int i = 0; i < data.length - 1; i += 3) {
+                                        String currentIdInMemory = data[i];                         // got current ID
+                                        if (idCopyString.compareTo(currentIdInMemory) == 0) {       // comparing both String IDs
+                                            // found the ID
+                                            // No need to do anything.
+                                        } else {
+                                            // check the previous ID
+                                            finalDataToEdit += data[i] + "-" + data[i + 1] + "-" + data[i + 2] + "-";
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), "Exception", Toast.LENGTH_SHORT).show();
+                                }
 
-                Toast.makeText(Insight.this, "Life Record Deleted", Toast.LENGTH_SHORT).show();
+                                // Editing IDs in finalDataToEdit.
 
-                Intent myIntent = new Intent(Insight.this, MainActivity.class);
-                startActivity(myIntent);
+                                String[] dataSeparate = finalDataToEdit.split("-");
+                                String finalDataToWrite = "";
+                                int designatedId = 1;
+
+                                for (int i = 0; i < dataSeparate.length - 1; i += 3) {
+                                    dataSeparate[i] = Integer.toString(designatedId);
+                                    designatedId++;
+                                    finalDataToWrite += dataSeparate[i] + "-" + dataSeparate[i + 1] + "-" + dataSeparate[i + 2] + "-";
+                                }
+                                writeToFile(finalDataToWrite);
+
+                                Toast.makeText(Insight.this, "Life Record Deleted", Toast.LENGTH_SHORT).show();
+
+                                Intent myIntent = new Intent(Insight.this, MainActivity.class);
+                                startActivity(myIntent);
+
+                            }
+                        })
+
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        });
+                alertDialog.show();
             }
         });
+
+
+        // AD SETUP START
+
+        if (!this.showAds) {
+            AdView adView = findViewById(R.id.adView2);
+            adView.loadAd(new AdRequest.Builder().build());
+        }
+
+        // AD SETUP END
     }
 
     @Override

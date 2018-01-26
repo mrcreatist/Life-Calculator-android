@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    tools:context="com.example.abhi.lifecalculator.AddUser">
+    android:focusableInTouchMode="true"
+    tools:context="com.creatist.abhi.lifecalculator.AddUser">
 
     <ImageView
         android:id="@+id/imageView2"

@@ -1,4 +1,4 @@
-package com.example.abhi.lifecalculator;
+package com.creatist.abhi.lifecalculator;
 
 import android.content.Context;
 import android.content.Intent;

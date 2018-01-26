@@ -1,4 +1,4 @@
-package com.example.abhi.lifecalculator;
+package com.creatist.abhi.lifecalculator;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 );
 
                 cardLayoutList.add(cardLayoutObject);
+
 
                 adapter = new MyAdapter(cardLayoutList, this);
                 recyclerView.setAdapter(adapter);

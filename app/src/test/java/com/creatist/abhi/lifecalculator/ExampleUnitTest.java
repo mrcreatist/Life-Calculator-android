@@ -1,8 +1,8 @@
-package com.example.abhi.lifecalculator;
+package com.creatist.abhi.lifecalculator;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
